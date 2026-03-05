@@ -118,7 +118,7 @@
 
     <header
         class="fixed top-0 w-full px-8 py-6 z-50 flex justify-between items-center bg-lavo-bg/90 backdrop-blur-sm border-b border-gray-100">
-        <div class="text-3xl font-extrabold text-lavo-blue tracking-tight">Lavô.</div>
+        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-8 object-contain">
         <button
             class="bg-lavo-pink text-white px-8 py-3 rounded-full text-lg font-bold hover:bg-lavo-purple transition-all shadow-md">Como
             Funciona</button>
@@ -146,7 +146,7 @@
         <div class="absolute top-32 w-full text-center z-50 px-6">
             <h1 id="text-title"
                 class="font-display text-3xl lg:text-5xl font-bold text-lavo-blue leading-tight tracking-tight">
-                Chega de perder o fim de semana lavando roupa.
+                Chega de perder a semana lavando roupa.
             </h1>
             <p id="text-subtitle"
                 class="text-sm lg:text-base text-gray-600 mt-3 font-medium opacity-100 transition-opacity max-w-xl mx-auto">
@@ -218,9 +218,9 @@
                     const p = self.progress;
                     const wraps = document.querySelectorAll('.scene-dot-wrap');
                     wraps.forEach(d => d.classList.remove('active'));
-                    if (p < 0.38) {
+                    if (p < 0.28) {
                         wraps[0].classList.add('active');
-                    } else if (p < 0.76) {
+                    } else if (p < 0.75) {
                         wraps[1].classList.add('active');
                     } else {
                         wraps[2].classList.add('active');
@@ -248,9 +248,9 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 1→2  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene1", { yPercent: -100, duration: 0.7, ease: "power2.inOut" })
-            .to("#scene2", { yPercent: 0, duration: 0.7, ease: "power2.inOut" }, "<")
-            .to("#blusa-suja", { top: "50%", rotation: 30, duration: 0.7, ease: "power2.inOut" }, "<")
+            .to("#scene1", { yPercent: -100, duration: 1.5, ease: "power2.inOut" })
+            .to("#scene2", { yPercent: 0, duration: 1.5, ease: "power2.inOut" }, "<")
+            .to("#blusa-suja", { top: "50%", rotation: 30, duration: 1.5, ease: "power2.inOut" }, "<")
 
             // ─────────────────────────────────────────────────
             // BLOCO 2  ·  CENA 2 ativa  (~33% → ~66%)
@@ -280,9 +280,9 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 2→3  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene2", { yPercent: -100, duration: 0.7, ease: "power2.inOut" })
-            .to("#scene3", { yPercent: 0, duration: 0.7, ease: "power2.inOut" }, "<")
-            .to("#blusa-limpa", { top: "45%", duration: 0.7, ease: "power2.inOut" }, "<")
+            .to("#scene2", { yPercent: -100, duration: 1.5, ease: "power2.inOut" })
+            .to("#scene3", { yPercent: 0, duration: 1.5, ease: "power2.inOut" }, "<")
+            .to("#blusa-limpa", { top: "45%", duration: 1.5, ease: "power2.inOut" }, "<")
             .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "+=0.05")
 
             // ─────────────────────────────────────────────────
@@ -305,7 +305,7 @@
         // Frações calculadas sobre a timeline real:
         //   cena1 = início, cena2 = ~0.35, cena3 = ~0.83
         // ─────────────────────────────────────────────────
-        const sceneScrollFractions = [0.0, 0.35, 0.83];
+        const sceneScrollFractions = [0.0, 0.47, 0.96];
 
         document.querySelectorAll('.scene-dot-wrap').forEach(wrap => {
             wrap.addEventListener('click', () => {
@@ -316,7 +316,7 @@
 
                 gsap.to(window, {
                     scrollTo: { y: targetScroll, autoKill: false },
-                    duration: 4.5,      // bem lento para o usuário ver todas as frases
+                    duration: 6,      // bem lento para o usuário ver todas as frases
                     ease: "power1.inOut"
                 });
             });
