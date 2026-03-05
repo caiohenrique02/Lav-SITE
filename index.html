@@ -211,9 +211,9 @@
             scrollTrigger: {
                 trigger: "#scrolly-theater",
                 start: "top top",
-                end: "+=300%",
+                end: "+=700%",
                 pin: true,
-                scrub: 1.5,           // sem snap — scroll totalmente livre
+                scrub: 2,             // sem snap — scroll totalmente livre
                 onUpdate: (self) => {
                     const p = self.progress;
                     const wraps = document.querySelectorAll('.scene-dot-wrap');
