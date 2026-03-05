@@ -10,6 +10,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -48,6 +49,66 @@
             background: #CBD5E1;
             border-radius: 10px;
         }
+
+        /* ===== Indicadores de Cena (Bolinhas) ===== */
+        .scene-dots {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .scene-dots.visible {
+            opacity: 1;
+        }
+
+        .scene-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #CBD5E1;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .scene-dot:hover {
+            background: #94A3B8;
+            transform: scale(1.3);
+        }
+
+        .scene-dot.active {
+            background: #EE3366;
+            border-color: #EE3366;
+            transform: scale(1.4);
+            box-shadow: 0 0 12px rgba(238, 51, 102, 0.4);
+        }
+
+        .scene-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748B;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .scene-dot:hover::after {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -60,6 +121,13 @@
             class="bg-lavo-pink text-white px-8 py-3 rounded-full text-lg font-bold hover:bg-lavo-purple transition-all shadow-md">Como
             Funciona</button>
     </header>
+
+    <!-- Indicadores de Cena -->
+    <nav class="scene-dots" id="scene-dots">
+        <div class="scene-dot active" data-scene="0" data-label="Sua roupa"></div>
+        <div class="scene-dot" data-scene="1" data-label="A lavagem"></div>
+        <div class="scene-dot" data-scene="2" data-label="Resultado"></div>
+    </nav>
 
     <div id="scrolly-theater"
         class="h-screen w-full relative overflow-hidden bg-lavo-bg flex flex-col items-center justify-center pt-20">
@@ -107,52 +175,113 @@
     </section>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
         // ================= ESTADO INICIAL =================
-        // Cena 2 e 3 começam fora da tela, embaixo
         gsap.set("#scene2", { yPercent: 100 });
         gsap.set("#scene3", { yPercent: 100 });
 
-        // Criamos uma timeline que dura 500% do tamanho da tela
+        // ================= TIMELINE COM SNAP =================
+        // 3 cenas = 300% de scroll, com snap em cada terço
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#scrolly-theater",
                 start: "top top",
-                end: "+=500%",
+                end: "+=300%",
                 pin: true,
-                scrub: 1
+                scrub: 0.8,
+                snap: {
+                    snapTo: [0, 0.33, 0.66, 1],
+                    duration: { min: 0.4, max: 0.8 },
+                    delay: 0.1,
+                    ease: "power2.inOut"
+                },
+                onUpdate: (self) => {
+                    // Atualizar bolinhas conforme o progresso
+                    const p = self.progress;
+                    const dots = document.querySelectorAll('.scene-dot');
+                    dots.forEach(d => d.classList.remove('active'));
+                    if (p < 0.28) {
+                        dots[0].classList.add('active');
+                    } else if (p < 0.62) {
+                        dots[1].classList.add('active');
+                    } else {
+                        dots[2].classList.add('active');
+                    }
+                },
+                onToggle: (self) => {
+                    // Mostrar/esconder bolinhas
+                    const dotsNav = document.getElementById('scene-dots');
+                    dotsNav.classList.toggle('visible', self.isActive);
+                }
             }
         });
 
-        // ================= A COREOGRAFIA =================
+        // ================= CENA 1 → CENA 2 (transição) =================
+        // Duração total desta fase: ~1.0 (de 3.0 total)
 
-        // FASE 1: Cena 1 (pilha) sobe pra fora, Cena 2 (máquina) entra por baixo.
-        // A blusa-suja se revela durante a transição (estava escondida atrás da pilha z-10 > z-5).
-        tl.to("#text-subtitle", { opacity: 0, duration: 0.3 })
-            .to("#scene1", { yPercent: -100, duration: 1.5, ease: "power1.inOut" })
-            .to("#scene2", { yPercent: 0, duration: 1.5, ease: "power1.inOut" }, "<")
-            .to("#blusa-suja", { top: "50%", rotation: 30, duration: 1.5 }, "<");
+        tl.to("#text-subtitle", { opacity: 0, duration: 0.15, ease: "power2.out" })
 
-        // FASE 2: A Máquina Lava — textos dinâmicos em 3 fases
-        tl.to("#text-title", { textContent: "Qualidade profissional...", color: "#EE3366", duration: 0.5 })
-            .to("#text-subtitle", { textContent: "Máquinas de última geração e insumos premium já inclusos. A fusão ideal entre eficácia e sustentabilidade.", opacity: 1, duration: 0.5 }, "<")
-            .to("#blusa-suja", { opacity: 0, duration: 0.1 })
-            .to("#text-title", { textContent: "...você no controle...", duration: 0.5 })
-            .to("#maquina", { rotation: 2, yoyo: true, repeat: 5, duration: 0.4, ease: "sine.inOut" })
-            .to("#blusa-limpa", { opacity: 1, duration: 0.1 }, "<")
-            .to("#text-title", { textContent: "...com resultados impecáveis.", duration: 0.5 });
+            // Cena 1 sobe, Cena 2 entra
+            .to("#scene1", { yPercent: -100, duration: 0.7, ease: "power2.inOut" })
+            .to("#scene2", { yPercent: 0, duration: 0.7, ease: "power2.inOut" }, "<")
+            .to("#blusa-suja", { top: "50%", rotation: 30, duration: 0.7, ease: "power2.inOut" }, "<")
 
-        // FASE 3: Cena 2 (máquina) sobe pra fora, Cena 3 (casal) entra por baixo.
-        // A blusa-limpa desce e se revela na transição (z-25 > z-10, mas z-25 < z-30).
-        tl.to("#text-title", { textContent: "Roupas limpas, secas e muito mais tempo livre.", color: "#5AC3E9", duration: 0.5 }, "+=0.2")
-            .to("#scene2", { yPercent: -100, duration: 1.5, ease: "power1.inOut" })
-            .to("#scene3", { yPercent: 0, duration: 1.5, ease: "power1.inOut" }, "<")
-            .to("#text-subtitle", { textContent: "Faça parte da comunidade que valoriza o cuidado com as roupas e o respeito ao meio ambiente. Lave de forma inovadora e vá curtir o que realmente importa.", opacity: 1, duration: 1 }, "<")
-            .to("#blusa-limpa", { top: "45%", duration: 1.5 }, "<")   // desce devagar — trajeto visível
-            .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "+=0.1"); // some instantaneamente ao chegar no casal
+            // ================= CENA 2: A MÁQUINA LAVA =================
+            // Duração total desta fase: ~1.0 (equilibrada com as outras)
+
+            // Texto principal — qualidade profissional
+            .to("#text-title", { textContent: "Qualidade profissional.", color: "#EE3366", duration: 0.01 })
+            .to("#text-subtitle", {
+                textContent: "Máquinas de última geração e insumos premium já inclusos.",
+                opacity: 1, duration: 0.15, ease: "power2.in"
+            })
+            .to("#blusa-suja", { opacity: 0, duration: 0.05 })
+
+            // Máquina vibra (reduzido) + texto dos 35 minutos
+            .to("#text-title", { textContent: "Sua lavagem em apenas 35 minutos.", duration: 0.01 })
+            .to("#text-subtitle", {
+                textContent: "Você no controle, com resultados impecáveis. Coloque suas roupas e aproveite seu tempo livre.",
+                duration: 0.01
+            })
+            .to("#maquina", { rotation: 1.5, yoyo: true, repeat: 2, duration: 0.15, ease: "sine.inOut" })
+            .to("#blusa-limpa", { opacity: 1, duration: 0.05 }, "<")
+
+            // ================= CENA 2 → CENA 3 (transição) =================
+            // Duração total desta fase: ~1.0
+
+            // Atualizar texto para cena final
+            .to("#text-title", { textContent: "Roupas limpas, secas e muito mais tempo livre.", color: "#5AC3E9", duration: 0.01 })
+            .to("#text-subtitle", {
+                textContent: "Faça parte da comunidade que valoriza o cuidado com as roupas e o respeito ao meio ambiente.",
+                opacity: 1, duration: 0.15, ease: "power2.in"
+            })
+
+            // Cena 2 sobe, Cena 3 entra
+            .to("#scene2", { yPercent: -100, duration: 0.7, ease: "power2.inOut" })
+            .to("#scene3", { yPercent: 0, duration: 0.7, ease: "power2.inOut" }, "<")
+            .to("#blusa-limpa", { top: "45%", duration: 0.7, ease: "power2.inOut" }, "<")
+            .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.1 }, "+=0.05");
+
+
+        // ================= CLIQUE NAS BOLINHAS =================
+        document.querySelectorAll('.scene-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                const sceneIndex = parseInt(dot.dataset.scene);
+                const st = tl.scrollTrigger;
+                const scrollPositions = [0, 0.33, 0.66];
+                const targetScroll = st.start + (st.end - st.start) * scrollPositions[sceneIndex];
+
+                gsap.to(window, {
+                    scrollTo: targetScroll,
+                    duration: 0.8,
+                    ease: "power2.inOut"
+                });
+            });
+        });
 
     </script>
+
 </body>
 
 </html>
