@@ -180,102 +180,131 @@
         // ================= ESTADO INICIAL =================
         gsap.set("#scene2", { yPercent: 100 });
         gsap.set("#scene3", { yPercent: 100 });
+        gsap.set("#text-title", { opacity: 1 });
+        gsap.set("#text-subtitle", { opacity: 1 });
 
-        // ================= TIMELINE COM SNAP =================
-        // 3 cenas = 300% de scroll, com snap em cada terço
+        /*
+         * ESTRUTURA DA TIMELINE (total = 3 "telas" de scroll = 300%)
+         *
+         *  [0.00] ─── CENA 1: texto visível, pilha de roupas
+         *  [0.25] ─── texto some → transição visual cena1→cena2
+         *  [0.50] ─── CENA 2: texto novo aparece, máquina aparece
+         *  [0.70] ─── texto some → transição visual cena2→cena3
+         *  [1.00] ─── CENA 3: texto final aparece, pessoas dobrando
+         *
+         * Separação clara: textos sempre saem ANTES da transição visual,
+         * e entram DEPOIS que a cena chegou. Zero bleeding entre cenas.
+         */
+
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#scrolly-theater",
                 start: "top top",
                 end: "+=300%",
                 pin: true,
-                scrub: 0.8,
-                snap: {
-                    snapTo: [0, 0.33, 0.66, 1],
-                    duration: { min: 0.4, max: 0.8 },
-                    delay: 0.1,
-                    ease: "power2.inOut"
-                },
+                scrub: 1.5,           // sem snap — scroll totalmente livre
                 onUpdate: (self) => {
-                    // Atualizar bolinhas conforme o progresso
                     const p = self.progress;
                     const dots = document.querySelectorAll('.scene-dot');
                     dots.forEach(d => d.classList.remove('active'));
-                    if (p < 0.28) {
+                    if (p < 0.4) {
                         dots[0].classList.add('active');
-                    } else if (p < 0.62) {
+                    } else if (p < 0.78) {
                         dots[1].classList.add('active');
                     } else {
                         dots[2].classList.add('active');
                     }
                 },
                 onToggle: (self) => {
-                    // Mostrar/esconder bolinhas
-                    const dotsNav = document.getElementById('scene-dots');
-                    dotsNav.classList.toggle('visible', self.isActive);
+                    document.getElementById('scene-dots').classList.toggle('visible', self.isActive);
                 }
             }
         });
 
-        // ================= CENA 1 → CENA 2 (transição) =================
-        // Duração total desta fase: ~1.0 (de 3.0 total)
+        // ─────────────────────────────────────────────────
+        // BLOCO 1  ·  CENA 1 ativa  (0% → ~33%)
+        // Texto da cena 1 fica exposto enquanto o usuário
+        // está olhando para a pilha de roupas.
+        // ─────────────────────────────────────────────────
 
-        tl.to("#text-subtitle", { opacity: 0, duration: 0.15, ease: "power2.out" })
+        // Pausa para o usuário ler o texto inicial
+        tl.to({}, { duration: 0.5 })
 
-            // Cena 1 sobe, Cena 2 entra
+            // — texto da cena 1 some ANTES de qualquer coisa se mover —
+            .to("#text-title", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" })
+            .to("#text-subtitle", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" }, "<")
+
+            // ─────────────────────────────────────────────────
+            // TRANSIÇÃO 1→2  (cenas se movem com texto fora)
+            // ─────────────────────────────────────────────────
             .to("#scene1", { yPercent: -100, duration: 0.7, ease: "power2.inOut" })
             .to("#scene2", { yPercent: 0, duration: 0.7, ease: "power2.inOut" }, "<")
             .to("#blusa-suja", { top: "50%", rotation: 30, duration: 0.7, ease: "power2.inOut" }, "<")
 
-            // ================= CENA 2: A MÁQUINA LAVA =================
-            // Duração total desta fase: ~1.0 (equilibrada com as outras)
+            // ─────────────────────────────────────────────────
+            // BLOCO 2  ·  CENA 2 ativa  (~33% → ~66%)
+            // Texto da cena 2 entra SÓ depois que a máquina chegou.
+            // ─────────────────────────────────────────────────
 
-            // Texto principal — qualidade profissional
-            .to("#text-title", { textContent: "Qualidade profissional.", color: "#EE3366", duration: 0.01 })
-            .to("#text-subtitle", {
-                textContent: "Máquinas de última geração e insumos premium já inclusos.",
-                opacity: 1, duration: 0.15, ease: "power2.in"
-            })
-            .to("#blusa-suja", { opacity: 0, duration: 0.05 })
+            // define conteúdo enquanto está invisível
+            .set("#text-title", { textContent: "Sua lavagem em apenas 35 minutos.", color: "#EE3366", y: 20 })
+            .set("#text-subtitle", { textContent: "Máquinas de última geração. Insumos premium inclusos. Você coloca, a Lavô cuida do resto.", y: 20 })
 
-            // Máquina vibra (reduzido) + texto dos 35 minutos
-            .to("#text-title", { textContent: "Sua lavagem em apenas 35 minutos.", duration: 0.01 })
-            .to("#text-subtitle", {
-                textContent: "Você no controle, com resultados impecáveis. Coloque suas roupas e aproveite seu tempo livre.",
-                duration: 0.01
-            })
+            // texto entra suavemente
+            .to("#text-title", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" })
+            .to("#text-subtitle", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "<0.1")
+            .to("#blusa-suja", { opacity: 0, duration: 0.2 }, "<")
+
+            // pequeno vibrado na máquina
             .to("#maquina", { rotation: 1.5, yoyo: true, repeat: 2, duration: 0.15, ease: "sine.inOut" })
-            .to("#blusa-limpa", { opacity: 1, duration: 0.05 }, "<")
+            .to("#blusa-limpa", { opacity: 1, duration: 0.2 }, "<")
 
-            // ================= CENA 2 → CENA 3 (transição) =================
-            // Duração total desta fase: ~1.0
+            // pausa — usuário lê o texto da cena 2
+            .to({}, { duration: 0.5 })
 
-            // Atualizar texto para cena final
-            .to("#text-title", { textContent: "Roupas limpas, secas e muito mais tempo livre.", color: "#5AC3E9", duration: 0.01 })
-            .to("#text-subtitle", {
-                textContent: "Faça parte da comunidade que valoriza o cuidado com as roupas e o respeito ao meio ambiente.",
-                opacity: 1, duration: 0.15, ease: "power2.in"
-            })
+            // — texto da cena 2 some ANTES de qualquer coisa se mover —
+            .to("#text-title", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" })
+            .to("#text-subtitle", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" }, "<")
 
-            // Cena 2 sobe, Cena 3 entra
+            // ─────────────────────────────────────────────────
+            // TRANSIÇÃO 2→3  (cenas se movem com texto fora)
+            // ─────────────────────────────────────────────────
             .to("#scene2", { yPercent: -100, duration: 0.7, ease: "power2.inOut" })
             .to("#scene3", { yPercent: 0, duration: 0.7, ease: "power2.inOut" }, "<")
             .to("#blusa-limpa", { top: "45%", duration: 0.7, ease: "power2.inOut" }, "<")
-            .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.1 }, "+=0.05");
+            .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "+=0.05")
+
+            // ─────────────────────────────────────────────────
+            // BLOCO 3  ·  CENA 3 ativa  (~66% → 100%)
+            // Texto da cena 3 entra SÓ depois que a cena chegou.
+            // ─────────────────────────────────────────────────
+
+            .set("#text-title", { textContent: "Roupas limpas, secas e muito mais tempo livre.", color: "#5AC3E9", y: 20 })
+            .set("#text-subtitle", { textContent: "Faça parte da comunidade que valoriza o cuidado com as roupas e o respeito ao meio ambiente.", y: 20 })
+
+            .to("#text-title", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" })
+            .to("#text-subtitle", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "<0.1")
+
+            // pausa final — usuário lê
+            .to({}, { duration: 0.5 });
 
 
-        // ================= CLIQUE NAS BOLINHAS =================
+        // ─────────────────────────────────────────────────
+        // BOLINHAS — clique com scroll LENTO e fluido
+        // ─────────────────────────────────────────────────
+        const sceneScrollFractions = [0, 0.34, 0.68];
+
         document.querySelectorAll('.scene-dot').forEach(dot => {
             dot.addEventListener('click', () => {
                 const sceneIndex = parseInt(dot.dataset.scene);
                 const st = tl.scrollTrigger;
-                const scrollPositions = [0, 0.33, 0.66];
-                const targetScroll = st.start + (st.end - st.start) * scrollPositions[sceneIndex];
+                const totalScrollDistance = st.end - st.start;
+                const targetScroll = st.start + totalScrollDistance * sceneScrollFractions[sceneIndex];
 
                 gsap.to(window, {
-                    scrollTo: targetScroll,
-                    duration: 0.8,
-                    ease: "power2.inOut"
+                    scrollTo: { y: targetScroll, autoKill: false },
+                    duration: 2.5,          // lento e fluido para ver as frases
+                    ease: "power1.inOut"
                 });
             });
         });
