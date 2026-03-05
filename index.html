@@ -118,7 +118,7 @@
 
     <header
         class="fixed top-0 w-full px-8 py-6 z-50 flex justify-between items-center bg-lavo-bg/90 backdrop-blur-sm border-b border-gray-100">
-        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-8 object-contain">
+        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-24 object-contain">
         <button
             class="bg-lavo-pink text-white px-8 py-3 rounded-full text-lg font-bold hover:bg-lavo-purple transition-all shadow-md">Como
             Funciona</button>
@@ -214,12 +214,6 @@
                 end: "+=700%",
                 pin: true,
                 scrub: 2,
-                snap: {
-                    snapTo: [0.0, 0.47, 0.96],
-                    duration: { min: 6, max: 6 },
-                    delay: 0.1,
-                    ease: "power2.inOut"
-                },
                 onUpdate: (self) => {
                     const p = self.progress;
                     const wraps = document.querySelectorAll('.scene-dot-wrap');
@@ -312,21 +306,77 @@
         //   cena1 = início, cena2 = ~0.35, cena3 = ~0.83
         // ─────────────────────────────────────────────────
         const sceneScrollFractions = [0.0, 0.47, 0.96];
+        let isAnimatingScroll = false;
+        let currentDotIndex = 0;
+
+        function goToScene(index) {
+            if (isAnimatingScroll || index < 0 || index > 2) return;
+            isAnimatingScroll = true;
+            currentDotIndex = index;
+
+            const st = tl.scrollTrigger;
+            const totalScrollDistance = st.end - st.start;
+            const targetScroll = st.start + totalScrollDistance * sceneScrollFractions[index];
+
+            gsap.to(window, {
+                scrollTo: { y: targetScroll, autoKill: false },
+                duration: 6,
+                ease: "power1.inOut",
+                onComplete: () => {
+                    setTimeout(() => isAnimatingScroll = false, 150);
+                }
+            });
+        }
 
         document.querySelectorAll('.scene-dot-wrap').forEach(wrap => {
             wrap.addEventListener('click', () => {
                 const sceneIndex = parseInt(wrap.dataset.scene);
-                const st = tl.scrollTrigger;
-                const totalScrollDistance = st.end - st.start;
-                const targetScroll = st.start + totalScrollDistance * sceneScrollFractions[sceneIndex];
-
-                gsap.to(window, {
-                    scrollTo: { y: targetScroll, autoKill: false },
-                    duration: 6,      // bem lento para o usuário ver todas as frases
-                    ease: "power1.inOut"
-                });
+                goToScene(sceneIndex);
             });
         });
+
+        // ─────────────────────────────────────────────────
+        // HIJACK DE SCROLL E TOUCH PARA AGIR COMO CLIQUES
+        // ─────────────────────────────────────────────────
+        window.addEventListener('wheel', (e) => {
+            const st = tl.scrollTrigger;
+            if (window.scrollY >= st.start && window.scrollY < st.end) {
+                if (isAnimatingScroll) {
+                    e.preventDefault();
+                    return;
+                }
+                if (e.deltaY > 10 && currentDotIndex < 2) {
+                    e.preventDefault();
+                    goToScene(currentDotIndex + 1);
+                } else if (e.deltaY < -10 && currentDotIndex > 0) {
+                    e.preventDefault();
+                    goToScene(currentDotIndex - 1);
+                }
+            }
+        }, { passive: false });
+
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: false });
+
+        window.addEventListener('touchmove', (e) => {
+            const st = tl.scrollTrigger;
+            if (window.scrollY >= st.start && window.scrollY < st.end) {
+                if (isAnimatingScroll) {
+                    e.preventDefault();
+                    return;
+                }
+                const deltaY = touchStartY - e.touches[0].clientY;
+                if (deltaY > 30 && currentDotIndex < 2) {
+                    e.preventDefault();
+                    goToScene(currentDotIndex + 1);
+                } else if (deltaY < -30 && currentDotIndex > 0) {
+                    e.preventDefault();
+                    goToScene(currentDotIndex - 1);
+                }
+            }
+        }, { passive: false });
 
     </script>
 
