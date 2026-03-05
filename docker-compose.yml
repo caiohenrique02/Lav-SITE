@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  lavo-site:
+    build: .
+    container_name: lavo-site
+    restart: always
+    ports:
+      - "80:80"
