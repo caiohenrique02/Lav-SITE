@@ -117,10 +117,10 @@
 <body class="font-sans antialiased selection:bg-lavo-pink selection:text-white">
 
     <header
-        class="fixed top-0 w-full px-4 py-1.5 md:px-8 md:py-6 z-50 flex justify-between items-center bg-lavo-bg/90 backdrop-blur-sm border-b border-gray-100">
-        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-10 md:h-24 object-contain">
+        class="fixed top-0 w-full px-4 py-1 md:px-8 md:py-3 z-50 flex justify-between items-center bg-lavo-bg/90 backdrop-blur-sm border-b border-gray-100">
+        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-6 md:h-12 object-contain">
         <button
-            class="bg-lavo-pink text-white px-5 py-1.5 md:px-8 md:py-3 rounded-full text-sm md:text-lg font-bold hover:bg-lavo-purple transition-all shadow-md">Como
+            class="bg-lavo-pink text-white px-5 py-1 md:px-8 md:py-1.5 rounded-full text-xs md:text-sm font-bold hover:bg-lavo-purple transition-all shadow-md">Como
             Funciona</button>
     </header>
 
@@ -193,7 +193,7 @@
         gsap.set("#scene3", { yPercent: 100 });
         gsap.set("#text-title", { opacity: 1 });
         gsap.set("#text-subtitle", { opacity: 1 });
-        gsap.set("#blusa-suja", { scale: 0.1 });
+        gsap.set("#blusa-suja", { scale: 0.1, opacity: 0 });
         gsap.set("#blusa-limpa", { scale: 0.1, opacity: 0 });
 
         /*
@@ -252,7 +252,8 @@
             // ─────────────────────────────────────────────────
             .to("#scene1", { yPercent: -100, duration: 1.5, ease: "power2.inOut" })
             .to("#scene2", { yPercent: 0, duration: 1.5, ease: "power2.inOut" }, "<")
-            // Blusa suja: Ar-scaling (cresce e encolhe)
+            // Blusa suja: Ar-scaling (cresce e encolhe) e torna visível só agora
+            .set("#blusa-suja", { opacity: 1 }, "<")
             .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 0.75, ease: "power2.out" }, "<")
             .to("#blusa-suja", { scale: 0.1, duration: 0.75, ease: "power2.in" }, ">")
 
