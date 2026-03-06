@@ -117,10 +117,10 @@
 <body class="font-sans antialiased selection:bg-lavo-pink selection:text-white">
 
     <header
-        class="fixed top-0 w-full px-8 py-6 z-50 flex justify-between items-center bg-lavo-bg/90 backdrop-blur-sm border-b border-gray-100">
-        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-24 object-contain">
+        class="fixed top-0 w-full px-4 py-2 md:px-8 md:py-6 z-50 flex justify-between items-center bg-lavo-bg/90 backdrop-blur-sm border-b border-gray-100">
+        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-12 md:h-24 object-contain">
         <button
-            class="bg-lavo-pink text-white px-8 py-3 rounded-full text-lg font-bold hover:bg-lavo-purple transition-all shadow-md">Como
+            class="bg-lavo-pink text-white px-4 py-1.5 md:px-8 md:py-3 rounded-full text-sm md:text-lg font-bold hover:bg-lavo-purple transition-all shadow-md">Como
             Funciona</button>
     </header>
 
@@ -193,6 +193,7 @@
         gsap.set("#scene3", { yPercent: 100 });
         gsap.set("#text-title", { opacity: 1 });
         gsap.set("#text-subtitle", { opacity: 1 });
+        gsap.set("#blusa-limpa", { scale: 0.6 });
 
         /*
          * ESTRUTURA DA TIMELINE (total = 3 "telas" de scroll = 300%)
@@ -250,7 +251,7 @@
             // ─────────────────────────────────────────────────
             .to("#scene1", { yPercent: -100, duration: 1.5, ease: "power2.inOut" })
             .to("#scene2", { yPercent: 0, duration: 1.5, ease: "power2.inOut" }, "<")
-            .to("#blusa-suja", { top: "50%", rotation: 30, duration: 1.5, ease: "power2.inOut" }, "<")
+            .to("#blusa-suja", { top: "50%", rotation: 30, scale: 1.5, duration: 1.5, ease: "power2.inOut" }, "<")
 
             // ─────────────────────────────────────────────────
             // BLOCO 2  ·  CENA 2 ativa  (~33% → ~66%)
@@ -264,11 +265,11 @@
             // texto entra suavemente
             .to("#text-title", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" })
             .to("#text-subtitle", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "<0.1")
-            .to("#blusa-suja", { opacity: 0, duration: 0.2 }, "<")
+            .to("#blusa-suja", { opacity: 0, scale: 0.8, duration: 0.2 }, "<")
 
             // pequeno vibrado na máquina
             .to("#maquina", { rotation: 1.5, yoyo: true, repeat: 2, duration: 0.15, ease: "sine.inOut" })
-            .to("#blusa-limpa", { opacity: 1, duration: 0.2 }, "<")
+            .to("#blusa-limpa", { opacity: 1, scale: 1.5, duration: 0.2 }, "<")
 
             // pausa — usuário lê o texto da cena 2
             .to({}, { duration: 0.5 })
@@ -282,7 +283,7 @@
             // ─────────────────────────────────────────────────
             .to("#scene2", { yPercent: -100, duration: 1.5, ease: "power2.inOut" })
             .to("#scene3", { yPercent: 0, duration: 1.5, ease: "power2.inOut" }, "<")
-            .to("#blusa-limpa", { top: "45%", duration: 1.5, ease: "power2.inOut" }, "<")
+            .to("#blusa-limpa", { top: "45%", scale: 1.2, duration: 1.5, ease: "power2.inOut" }, "<")
             .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "+=0.05")
 
             // ─────────────────────────────────────────────────
