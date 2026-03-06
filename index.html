@@ -156,7 +156,7 @@
         </div>
 
         <div id="scene1" class="absolute inset-0 flex items-center justify-center z-10 mt-20">
-            <img src="./assets/cena1-pilha.png" class="w-full max-w-2xl object-contain relative top-10">
+            <img src="./assets/cena1-pilha.png" class="w-full max-w-xl object-contain relative top-10">
         </div>
 
         <div id="scene2" class="absolute inset-0 flex items-center justify-center z-40 mt-20">
@@ -250,12 +250,12 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 1→2  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene1", { yPercent: -100, duration: 2.2, ease: "power2.inOut" })
-            .to("#scene2", { yPercent: 0, duration: 2.2, ease: "power2.inOut" }, "<")
+            .to("#scene1", { yPercent: -100, duration: 3.0, ease: "power2.inOut" })
+            .to("#scene2", { yPercent: 0, duration: 3.0, ease: "power2.inOut" }, "<")
             // Blusa suja: Ar-scaling (cresce e encolhe)
-            // Começa pequena, espera o fundo se mover um pouco (delay 0.5), e depois cresce
-            .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 1.1, ease: "power2.out" }, "<0.5")
-            .to("#blusa-suja", { scale: 0.1, duration: 1.1, ease: "power2.in" }, ">")
+            // Começa pequena, espera o fundo se mover um pouco (delay 0.8), e depois cresce
+            .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 1.5, ease: "power2.out" }, "<0.8")
+            .to("#blusa-suja", { scale: 0.1, duration: 1.5, ease: "power2.in" }, ">")
 
             // ─────────────────────────────────────────────────
             // BLOCO 2  ·  CENA 2 ativa  (~33% → ~66%)
@@ -266,10 +266,10 @@
             .set("#text-title", { textContent: "Sua lavagem em apenas 35 minutos.", color: "#EE3366", y: 20 })
             .set("#text-subtitle", { textContent: "Máquinas de última geração. Insumos premium inclusos. Você coloca, a Lavô cuida do resto.", y: 20 })
 
-            // texto entra suavemente
-            .to("#text-title", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" })
-            .to("#text-subtitle", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "<0.1")
-            .to("#blusa-suja", { opacity: 0, duration: 0.1 }, "<")
+            // texto entra suavemente - ANTECIPADO            // texto final - ANTECIPADO (overlap de 0.8s)
+            .to("#text-title", { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, "<0.8")
+            .to("#text-subtitle", { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, "<0.1")
+            .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "<")
 
             // pequeno vibrado na máquina
             .to("#maquina", { rotation: 1.5, yoyo: true, repeat: 2, duration: 0.15, ease: "sine.inOut" })
@@ -285,11 +285,11 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 2→3  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene2", { yPercent: -100, duration: 2.2, ease: "power2.inOut" })
-            .to("#scene3", { yPercent: 0, duration: 2.2, ease: "power2.inOut" }, "<")
+            .to("#scene2", { yPercent: -100, duration: 3.0, ease: "power2.inOut" })
+            .to("#scene3", { yPercent: 0, duration: 3.0, ease: "power2.inOut" }, "<")
             // Blusa limpa: Ar-scaling (cresce e encolhe)
-            .to("#blusa-limpa", { scale: 1.5, top: "45%", duration: 1.1, ease: "power2.out" }, "<")
-            .to("#blusa-limpa", { scale: 0.1, duration: 1.1, ease: "power2.in" }, ">")
+            .to("#blusa-limpa", { scale: 1.5, top: "45%", duration: 1.5, ease: "power2.out" }, "<")
+            .to("#blusa-limpa", { scale: 0.1, duration: 1.5, ease: "power2.in" }, ">")
             .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "+=0.05")
 
             // ─────────────────────────────────────────────────
@@ -328,8 +328,9 @@
             gsap.to(window, {
                 scrollTo: { y: targetScroll, autoKill: false },
                 duration: 6,
-                // Ease de alto contraste: Início/fim muito rápidos, meio bem lento
-                ease: "bezier(0.9, 0, 0.1, 1)",
+                // SlowMo: 70% da animação em velocidade linear/lenta no meio
+                // e 15% de aceleração/desaceleração rápida nas pontas
+                ease: "slow(0.7, 0.7, false)",
                 onComplete: () => {
                     setTimeout(() => isAnimatingScroll = false, 150);
                 }
