@@ -193,7 +193,7 @@
         gsap.set("#scene3", { yPercent: 100 });
         gsap.set("#text-title", { opacity: 1 });
         gsap.set("#text-subtitle", { opacity: 1 });
-        gsap.set("#blusa-suja", { scale: 0.1, opacity: 0 });
+        gsap.set("#blusa-suja", { scale: 0.1 });
         gsap.set("#blusa-limpa", { scale: 0.1, opacity: 0 });
 
         /*
@@ -252,10 +252,10 @@
             // ─────────────────────────────────────────────────
             .to("#scene1", { yPercent: -100, duration: 1.5, ease: "power2.inOut" })
             .to("#scene2", { yPercent: 0, duration: 1.5, ease: "power2.inOut" }, "<")
-            // Blusa suja: Ar-scaling (cresce e encolhe) e torna visível só agora
-            .set("#blusa-suja", { opacity: 1 }, "<")
-            .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 0.75, ease: "power2.out" }, "<")
-            .to("#blusa-suja", { scale: 0.1, duration: 0.75, ease: "power2.in" }, ">")
+            // Blusa suja: Ar-scaling (cresce e encolhe)
+            // Começa pequena, espera o fundo se mover um pouco (delay 0.3), e depois cresce
+            .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 0.6, ease: "power2.out" }, "<0.3")
+            .to("#blusa-suja", { scale: 0.1, duration: 0.6, ease: "power2.in" }, ">")
 
             // ─────────────────────────────────────────────────
             // BLOCO 2  ·  CENA 2 ativa  (~33% → ~66%)
