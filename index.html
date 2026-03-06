@@ -250,12 +250,12 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 1→2  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene1", { yPercent: -100, duration: 1.5, ease: "power2.inOut" })
-            .to("#scene2", { yPercent: 0, duration: 1.5, ease: "power2.inOut" }, "<")
+            .to("#scene1", { yPercent: -100, duration: 2.2, ease: "power2.inOut" })
+            .to("#scene2", { yPercent: 0, duration: 2.2, ease: "power2.inOut" }, "<")
             // Blusa suja: Ar-scaling (cresce e encolhe)
-            // Começa pequena, espera o fundo se mover um pouco (delay 0.3), e depois cresce
-            .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 0.6, ease: "power2.out" }, "<0.3")
-            .to("#blusa-suja", { scale: 0.1, duration: 0.6, ease: "power2.in" }, ">")
+            // Começa pequena, espera o fundo se mover um pouco (delay 0.5), e depois cresce
+            .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 1.1, ease: "power2.out" }, "<0.5")
+            .to("#blusa-suja", { scale: 0.1, duration: 1.1, ease: "power2.in" }, ">")
 
             // ─────────────────────────────────────────────────
             // BLOCO 2  ·  CENA 2 ativa  (~33% → ~66%)
@@ -285,11 +285,11 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 2→3  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene2", { yPercent: -100, duration: 1.5, ease: "power2.inOut" })
-            .to("#scene3", { yPercent: 0, duration: 1.5, ease: "power2.inOut" }, "<")
+            .to("#scene2", { yPercent: -100, duration: 2.2, ease: "power2.inOut" })
+            .to("#scene3", { yPercent: 0, duration: 2.2, ease: "power2.inOut" }, "<")
             // Blusa limpa: Ar-scaling (cresce e encolhe)
-            .to("#blusa-limpa", { scale: 1.5, top: "45%", duration: 0.75, ease: "power2.out" }, "<")
-            .to("#blusa-limpa", { scale: 0.1, duration: 0.75, ease: "power2.in" }, ">")
+            .to("#blusa-limpa", { scale: 1.5, top: "45%", duration: 1.1, ease: "power2.out" }, "<")
+            .to("#blusa-limpa", { scale: 0.1, duration: 1.1, ease: "power2.in" }, ">")
             .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "+=0.05")
 
             // ─────────────────────────────────────────────────
@@ -327,9 +327,9 @@
 
             gsap.to(window, {
                 scrollTo: { y: targetScroll, autoKill: false },
-                duration: 4,
-                // Ease customizado: Rápido no início/fim, bem lento no meio
-                ease: "bezier(0.8, 0, 0.2, 1)",
+                duration: 6,
+                // Ease equilibrado: Começo/fim rápidos, meio prolongado e suave
+                ease: "bezier(0.7, 0, 0.3, 1)",
                 onComplete: () => {
                     setTimeout(() => isAnimatingScroll = false, 150);
                 }
