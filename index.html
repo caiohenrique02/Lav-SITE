@@ -189,14 +189,6 @@
                 <!-- Card Lavagem -->
                 <div
                     class="efficiency-card bg-white p-10 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-50 flex-1 max-w-md w-full relative z-10">
-                    <div
-                        class="w-14 h-14 bg-lavo-blue/10 text-lavo-blue rounded-2xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
                     <img src="./assets/Sil na Lavadora.jpg" alt="Sil na Lavadora"
                         class="w-full h-48 object-cover rounded-2xl mb-6 shadow-sm">
                     <h3 class="font-display text-4xl font-bold text-lavo-blue mb-2">35 min</h3>
@@ -208,17 +200,6 @@
                 <!-- Card Secagem -->
                 <div
                     class="efficiency-card bg-white p-10 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-50 flex-1 max-w-md w-full relative z-10 md:translate-y-8">
-                    <div
-                        class="w-14 h-14 bg-lavo-pink/10 text-lavo-pink rounded-2xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z">
-                            </path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path>
-                        </svg>
-                    </div>
                     <img src="./assets/Sil na secadora.jpg" alt="Sil na Secadora"
                         class="w-full h-48 object-cover rounded-2xl mb-6 shadow-sm">
                     <h3 class="font-display text-4xl font-bold text-lavo-pink mb-2">45 min</h3>
@@ -644,30 +625,7 @@
             scale: 0.95, opacity: 0, duration: 0.7, stagger: 0.15, ease: "power2.out"
         });
 
-        // Efeito Parallax nas imagens da Galeria e Produto
-        gsap.utils.toArray('.bento-item img').forEach(img => {
-            gsap.to(img, {
-                yPercent: 15,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: img.parentElement,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-        });
 
-        gsap.to('.products-image img', {
-            yPercent: 10,
-            ease: "none",
-            scrollTrigger: {
-                trigger: '.products-image',
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
-        });
 
         // Como Usar
         gsap.from(".how-to-title", {
