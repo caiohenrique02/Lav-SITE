@@ -49,68 +49,6 @@
             background: #CBD5E1;
             border-radius: 10px;
         }
-
-        /* ===== Indicadores de Cena (Bolinhas) ===== */
-        .scene-dots {
-            position: fixed;
-            right: 28px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 60;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .scene-dots.visible {
-            opacity: 1;
-        }
-
-        .scene-dot-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            flex-direction: row-reverse;
-        }
-
-        .scene-dot {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #CBD5E1;
-            border: 2.5px solid transparent;
-            flex-shrink: 0;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .scene-dot-wrap:hover .scene-dot {
-            background: #94A3B8;
-            transform: scale(1.2);
-        }
-
-        .scene-dot-wrap.active .scene-dot {
-            background: #EE3366;
-            border-color: #EE3366;
-            transform: scale(1.25);
-            box-shadow: 0 0 14px rgba(238, 51, 102, 0.45);
-        }
-
-        .scene-dot-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #94A3B8;
-            white-space: nowrap;
-            letter-spacing: 0.03em;
-            transition: color 0.3s ease;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        .scene-dot-wrap.active .scene-dot-label {
-            color: #EE3366;
-        }
     </style>
 </head>
 
@@ -124,47 +62,36 @@
             Funciona</button>
     </header>
 
-    <!-- Indicadores de Cena -->
-    <nav class="scene-dots" id="scene-dots">
-        <div class="scene-dot-wrap active" data-scene="0">
-            <div class="scene-dot"></div>
-            <span class="scene-dot-label">Sua roupa</span>
-        </div>
-        <div class="scene-dot-wrap" data-scene="1">
-            <div class="scene-dot"></div>
-            <span class="scene-dot-label">A lavagem</span>
-        </div>
-        <div class="scene-dot-wrap" data-scene="2">
-            <div class="scene-dot"></div>
-            <span class="scene-dot-label">Resultado</span>
-        </div>
-    </nav>
+
 
     <div id="scrolly-theater"
         class="h-screen w-full relative overflow-hidden bg-lavo-bg flex flex-col items-center justify-center pt-20">
 
-        <div class="absolute top-32 w-full text-center z-20 px-6">
+        <div class="absolute top-24 md:top-32 w-full text-center z-20 px-4 sm:px-6 pointer-events-none">
             <h1 id="text-title"
-                class="font-display text-3xl lg:text-5xl font-bold text-lavo-blue leading-tight tracking-tight">
+                class="font-display text-3xl lg:text-5xl font-bold text-lavo-blue leading-tight tracking-tight drop-shadow-sm">
                 Chega de perder a semana lavando roupa.
             </h1>
             <p id="text-subtitle"
-                class="text-sm lg:text-base text-gray-600 mt-3 font-medium opacity-100 transition-opacity max-w-xl mx-auto">
+                class="text-sm lg:text-base text-gray-700 mt-3 font-medium opacity-100 transition-opacity max-w-xl mx-auto drop-shadow-sm">
                 Conheça a Lavô Campina Grande. A sua lavanderia de autoatendimento inteligente: rápida, econômica e 100%
                 focada na sua praticidade.
             </p>
         </div>
 
-        <div id="scene1" class="absolute inset-0 flex items-center justify-center z-10 mt-20">
-            <img src="./assets/cena1-pilha.png" class="w-full max-w-xl object-contain relative top-10">
+        <div id="scene1" class="absolute inset-0 flex items-center justify-center z-10 mt-36 md:mt-24 px-4">
+            <img src="./assets/cena1-pilha.png"
+                class="w-full max-w-xl max-h-[45vh] md:max-h-[65vh] object-contain relative top-10">
         </div>
 
-        <div id="scene2" class="absolute inset-0 flex items-center justify-center z-40 mt-20">
-            <img src="./assets/maquina.png" id="maquina" class="w-full max-w-[34rem] object-contain drop-shadow-2xl">
+        <div id="scene2" class="absolute inset-0 flex items-center justify-center z-40 mt-36 md:mt-24 px-4">
+            <img src="./assets/maquina.png" id="maquina"
+                class="w-full max-w-[34rem] max-h-[50vh] md:max-h-[70vh] object-contain drop-shadow-2xl">
         </div>
 
-        <div id="scene3" class="absolute inset-0 flex items-center justify-center z-10 mt-20">
-            <img src="./assets/cena4-dobrando.png" class="w-full max-w-2xl object-contain relative top-10">
+        <div id="scene3" class="absolute inset-0 flex items-center justify-center z-10 mt-36 md:mt-24 px-4">
+            <img src="./assets/cena4-dobrando.png"
+                class="w-full max-w-2xl max-h-[45vh] md:max-h-[65vh] object-contain relative top-10">
         </div>
 
         <img src="./assets/blusa-suja.png" id="blusa-suja"
@@ -421,24 +348,9 @@
             scrollTrigger: {
                 trigger: "#scrolly-theater",
                 start: "top top",
-                end: "+=1000%",
+                end: "+=1500%",
                 pin: true,
-                scrub: 2,
-                onUpdate: (self) => {
-                    const p = self.progress;
-                    const wraps = document.querySelectorAll('.scene-dot-wrap');
-                    wraps.forEach(d => d.classList.remove('active'));
-                    if (p < 0.28) {
-                        wraps[0].classList.add('active');
-                    } else if (p < 0.75) {
-                        wraps[1].classList.add('active');
-                    } else {
-                        wraps[2].classList.add('active');
-                    }
-                },
-                onToggle: (self) => {
-                    document.getElementById('scene-dots').classList.toggle('visible', self.isActive);
-                }
+                scrub: 2
             }
         });
 
@@ -449,7 +361,7 @@
         // ─────────────────────────────────────────────────
 
         // Pausa para o usuário ler o texto inicial
-        tl.to({}, { duration: 0.5 })
+        tl.to({}, { duration: 2.5 })
 
             // — texto da cena 1 some ANTES de qualquer coisa se mover —
             .to("#text-title", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" })
@@ -484,7 +396,7 @@
             .to("#blusa-limpa", { opacity: 1, duration: 0.1 }, "<")
 
             // pausa — usuário lê o texto da cena 2
-            .to({}, { duration: 0.5 })
+            .to({}, { duration: 2.5 })
 
             // — texto da cena 2 some ANTES de qualquer coisa se mover —
             .to("#text-title", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" })
@@ -512,87 +424,10 @@
             .to("#text-subtitle", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "<0.1")
 
             // pausa final — usuário lê
-            .to({}, { duration: 0.5 });
+            .to({}, { duration: 2.5 });
 
 
-        // ─────────────────────────────────────────────────
-        // BOLINHAS — clique com scroll LENTO e fluido
-        // Frações calculadas sobre a timeline real:
-        //   cena1 = início, cena2 = ~0.35, cena3 = ~0.83
-        // ─────────────────────────────────────────────────
-        const sceneScrollFractions = [0.0, 0.47, 0.96];
-        let isAnimatingScroll = false;
-        let currentDotIndex = 0;
 
-        function goToScene(index) {
-            if (isAnimatingScroll || index < 0 || index > 2) return;
-            isAnimatingScroll = true;
-            currentDotIndex = index;
-
-            const st = tl.scrollTrigger;
-            const totalScrollDistance = st.end - st.start;
-            const targetScroll = st.start + totalScrollDistance * sceneScrollFractions[index];
-
-            gsap.to(window, {
-                scrollTo: { y: targetScroll, autoKill: false },
-                duration: 3, // Capped at 3 seconds as requested
-                // SlowMo: 80% linear/slow in the middle, 10% explosion at each end
-                ease: "slow(0.8, 0.8, false)",
-                onComplete: () => {
-                    setTimeout(() => isAnimatingScroll = false, 150);
-                }
-            });
-        }
-
-        document.querySelectorAll('.scene-dot-wrap').forEach(wrap => {
-            wrap.addEventListener('click', () => {
-                const sceneIndex = parseInt(wrap.dataset.scene);
-                goToScene(sceneIndex);
-            });
-        });
-
-        // ─────────────────────────────────────────────────
-        // HIJACK DE SCROLL E TOUCH PARA AGIR COMO CLIQUES
-        // ─────────────────────────────────────────────────
-        window.addEventListener('wheel', (e) => {
-            const st = tl.scrollTrigger;
-            if (window.scrollY >= st.start && window.scrollY < st.end) {
-                if (isAnimatingScroll) {
-                    e.preventDefault();
-                    return;
-                }
-                if (e.deltaY > 10 && currentDotIndex < 2) {
-                    e.preventDefault();
-                    goToScene(currentDotIndex + 1);
-                } else if (e.deltaY < -10 && currentDotIndex > 0) {
-                    e.preventDefault();
-                    goToScene(currentDotIndex - 1);
-                }
-            }
-        }, { passive: false });
-
-        let touchStartY = 0;
-        window.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, { passive: false });
-
-        window.addEventListener('touchmove', (e) => {
-            const st = tl.scrollTrigger;
-            if (window.scrollY >= st.start && window.scrollY < st.end) {
-                if (isAnimatingScroll) {
-                    e.preventDefault();
-                    return;
-                }
-                const deltaY = touchStartY - e.touches[0].clientY;
-                if (deltaY > 30 && currentDotIndex < 2) {
-                    e.preventDefault();
-                    goToScene(currentDotIndex + 1);
-                } else if (deltaY < -30 && currentDotIndex > 0) {
-                    e.preventDefault();
-                    goToScene(currentDotIndex - 1);
-                }
-            }
-        }, { passive: false });
 
         // ================= ETAPA 3: Animações GSAP de Entrada =================
         // Cronograma de Eficiência 
