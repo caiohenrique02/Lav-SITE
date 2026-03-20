@@ -55,11 +55,21 @@
 <body class="font-sans antialiased selection:bg-lavo-pink selection:text-white">
 
     <header
-        class="fixed top-0 w-full px-4 py-1 md:px-8 md:py-3 z-50 flex justify-between items-center bg-lavo-bg/90 backdrop-blur-sm border-b border-gray-100">
+        class="fixed top-0 w-full px-4 py-2 md:px-8 md:py-3 z-50 flex justify-between items-center bg-lavo-bg/90 backdrop-blur-sm border-b border-gray-100">
         <img src="./assets/logo Lavô.png" alt="Lavô" class="h-6 md:h-12 object-contain">
-        <button
-            class="bg-lavo-pink text-white px-5 py-1 md:px-8 md:py-1.5 rounded-full text-xs md:text-sm font-bold hover:bg-lavo-purple transition-all shadow-md">Como
-            Funciona</button>
+        <div class="flex items-center gap-4 md:gap-8">
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#efficiency-section"
+                    class="text-sm font-bold text-gray-600 hover:text-lavo-pink transition-colors">Tempo</a>
+                <a href="#products-section"
+                    class="text-sm font-bold text-gray-600 hover:text-lavo-pink transition-colors">Insumos</a>
+                <a href="#gallery-section"
+                    class="text-sm font-bold text-gray-600 hover:text-lavo-pink transition-colors">Espaço</a>
+            </nav>
+            <a href="#how-to-use-section"
+                class="bg-lavo-pink text-white px-5 py-1.5 md:px-8 md:py-2 rounded-full text-xs md:text-sm font-bold hover:bg-lavo-purple transition-all shadow-md inline-block">Como
+                Usar</a>
+        </div>
     </header>
 
 
@@ -348,7 +358,7 @@
             scrollTrigger: {
                 trigger: "#scrolly-theater",
                 start: "top top",
-                end: "+=1500%",
+                end: "+=750%", // Scroll 50% mais curto
                 pin: true,
                 scrub: 2
             }
@@ -512,6 +522,21 @@
             repeat: -1,
             yoyo: true,
             ease: "sine.inOut"
+        });
+
+        // Navegação suave do Menu Header
+        document.querySelectorAll('header a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        scrollTo: { y: target, autoKill: false, offsetY: 80 }, // offsetY compensa o header fixo
+                        duration: 1,
+                        ease: "power2.inOut"
+                    });
+                }
+            });
         });
 
         // Atualizar ScrollTrigger em caso de resize e readequação de document height
