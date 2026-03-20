@@ -88,48 +88,40 @@
             class="absolute bottom-0 left-0 w-20 md:w-40 lg:w-56 -translate-x-6 translate-y-6 md:-translate-x-10 md:translate-y-10 rotate-180 drop-shadow-lg opacity-90">
     </div>
 
-    <div id="scrolly-theater"
-        class="h-screen w-full relative overflow-hidden bg-lavo-bg flex flex-col pt-24 pb-12 px-6 sm:px-12 lg:px-24">
+    <div id="scrolly-theater" class="h-screen w-full relative overflow-hidden bg-lavo-bg">
 
-        <!-- Área de Textos -->
-        <div class="w-full text-center z-20 pointer-events-none flex-shrink-0 mb-6 md:mb-12">
+        <div
+            class="absolute top-[12vh] md:top-[16vh] left-0 w-full text-center z-20 px-6 sm:px-12 lg:px-24 pointer-events-none">
             <h1 id="text-title"
                 class="font-display text-3xl md:text-5xl font-bold text-lavo-blue leading-tight tracking-tight drop-shadow-sm max-w-4xl mx-auto">
-                Chega de perder a semana lavando roupa.
+                Chega de perder o dia inteiro lavando roupa.
             </h1>
             <p id="text-subtitle"
-                class="text-sm md:text-base lg:text-lg text-gray-700 mt-4 font-medium opacity-100 transition-opacity max-w-2xl mx-auto drop-shadow-sm">
+                class="text-sm md:text-lg text-gray-700 mt-4 font-medium opacity-100 transition-opacity max-w-2xl mx-auto drop-shadow-sm">
                 Conheça a Lavô Campina Grande. A sua lavanderia de autoatendimento inteligente: rápida, econômica e 100%
                 focada na sua praticidade.
             </p>
         </div>
 
-        <!-- Área de Imagens (Cenas) -->
-        <div class="relative w-full flex-grow flex items-start md:items-center justify-center">
-            <div id="scene1"
-                class="absolute inset-0 flex items-start md:items-center justify-center z-10 px-2 pb-6 pt-4 md:pt-0">
-                <img src="./assets/cena1-pilha.png"
-                    class="w-full max-w-[18rem] md:max-w-xl max-h-full object-contain relative transition-all">
-            </div>
-
-            <div id="scene2"
-                class="absolute inset-0 flex items-start md:items-center justify-center z-40 px-2 pb-6 pt-4 md:pt-0">
-                <img src="./assets/maquina.png" id="maquina"
-                    class="w-full max-w-[18rem] md:max-w-[34rem] max-h-full object-contain drop-shadow-2xl transition-all">
-            </div>
-
-            <div id="scene3"
-                class="absolute inset-0 flex items-start md:items-center justify-center z-10 px-2 pb-6 pt-4 md:pt-0">
-                <img src="./assets/cena4-dobrando.png"
-                    class="w-full max-w-[20rem] md:max-w-2xl max-h-full object-contain relative transition-all">
-            </div>
-
-            <img src="./assets/blusa-suja.png" id="blusa-suja"
-                class="absolute w-20 md:w-36 top-[20%] md:top-[40%] left-1/2 -translate-x-1/2 z-[5] pointer-events-none">
-
-            <img src="./assets/blusa-limpa.png" id="blusa-limpa"
-                class="absolute w-28 md:w-48 top-[20%] md:top-[40%] left-1/2 -translate-x-1/2 z-[25] opacity-0 pointer-events-none">
+        <div id="scene1" class="absolute inset-0 flex items-start justify-center z-10 px-6 pt-[38vh] md:pt-[40vh]">
+            <img src="./assets/cena1-pilha.png" class="w-full max-w-[16rem] md:max-w-xl max-h-[50vh] object-contain">
         </div>
+
+        <div id="scene2" class="absolute inset-0 flex items-start justify-center z-40 px-6 pt-[38vh] md:pt-[40vh]">
+            <img src="./assets/maquina.png" id="maquina"
+                class="w-full max-w-[16rem] md:max-w-[34rem] max-h-[50vh] object-contain drop-shadow-2xl">
+        </div>
+
+        <div id="scene3" class="absolute inset-0 flex items-start justify-center z-10 px-6 pt-[38vh] md:pt-[40vh]">
+            <img src="./assets/cena4-dobrando.png"
+                class="w-full max-w-[20rem] md:max-w-2xl max-h-[50vh] object-contain">
+        </div>
+
+        <img src="./assets/blusa-suja.png" id="blusa-suja"
+            class="absolute w-20 md:w-36 top-[55%] left-1/2 -translate-x-1/2 z-[5] pointer-events-none">
+
+        <img src="./assets/blusa-limpa.png" id="blusa-limpa"
+            class="absolute w-28 md:w-48 top-[55%] left-1/2 -translate-x-1/2 z-[25] opacity-0 pointer-events-none">
 
     </div>
 
@@ -152,7 +144,7 @@
                     <h3 class="font-display text-4xl font-bold text-lavo-blue mb-2">35 min</h3>
                     <h4 class="font-sans text-xl font-bold text-gray-800 mb-3">Lavagem Profissional</h4>
                     <p class="text-gray-500 text-sm leading-relaxed">Dosagem completamente automática de insumos.
-                        Temperatura ideal da água e tecnologia que limpa com profundidade sem agredir as roupas.</p>
+                        Água na medida certa sem desperdício e tecnologia que limpa sem agredir as roupas.</p>
                 </div>
 
                 <!-- Card Secagem -->
@@ -161,9 +153,10 @@
                     <img src="./assets/Sil na secadora.jpg" alt="Sil na Secadora"
                         class="w-full h-48 object-cover rounded-2xl mb-6 shadow-sm">
                     <h3 class="font-display text-4xl font-bold text-lavo-pink mb-2">45 min</h3>
-                    <h4 class="font-sans text-xl font-bold text-gray-800 mb-3">Secagem Industrial</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">Controle térmico de alta precisão que amacia cada
-                        fibra. As roupas saem quentinhas, prontas para dobrar, guardar ou até vestir na hora.</p>
+                    <h4 class="font-sans text-xl font-bold text-gray-800 mb-3">Secagem Profissional</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">3 tipos de temperatura para atender diversos tipos
+                        de tecidos. As roupas saem quentinhas, prontas para dobrar, guardar ou até vestir na hora, e a
+                        secadora elimina 99% das bactérias e fungos.</p>
                 </div>
             </div>
         </div>
@@ -173,15 +166,12 @@
         <div class="max-w-5xl mx-auto px-6 sm:px-12 lg:px-24">
             <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
                 <div class="w-full lg:w-1/2 products-text">
-                    <span class="text-xs font-bold tracking-widest text-lavo-pink uppercase mb-4 block">Parceria
-                        Exclusiva</span>
                     <h2 class="font-display text-4xl lg:text-5xl font-bold text-lavo-blue mb-6">Qualidade premium em
                         cada gota.</h2>
                     <p class="text-gray-600 text-lg mb-8 leading-relaxed">
                         Sabemos que suas roupas exigem o máximo de cuidado. Por isso, abastecemos nossas máquinas com
                         uma
                         linha <b class="text-lavo-blue font-bold">Premium Superconcentrada</b> de alta performance.
-                        Garantimos a dosagem perfeita para limpeza profunda e durabilidade das fibras.
                     </p>
 
                     <div class="space-y-6">
@@ -192,8 +182,8 @@
                             </div>
                             <div>
                                 <h3 class="font-sans font-bold text-xl text-gray-800 mb-1">Sabão Profissional</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed">Remoção de manchas extraordinária com
-                                    proteção ativa das cores desde a primeira lavagem.</p>
+                                <p class="text-sm text-gray-500 leading-relaxed">Tecnologia de baixa formação de espuma
+                                    para maximizar a limpeza e preservar as cores e fibras das roupas.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
@@ -203,8 +193,8 @@
                             </div>
                             <div>
                                 <h3 class="font-sans font-bold text-xl text-gray-800 mb-1">Amaciante Profissional</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed">Amaciamento profundo prevenindo o
-                                    desgaste das roupas, com um perfume inconfundível e marcante.</p>
+                                <p class="text-sm text-gray-500 leading-relaxed">Amaciante profissional para garantir a
+                                    maciez e o perfume inconfundível.</p>
                             </div>
                         </div>
                     </div>
@@ -281,8 +271,8 @@
                         </svg>
                     </div>
                     <h3 class="font-sans font-bold text-xl text-gray-800 mb-2">Traga as roupas</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Use nosso cesto medidor padrão (até 10kg ou
-                        aproximadamente 20 peças de uso pessoal).</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">Use nosso cesto medidor padrão (até 25 camisetas ou
+                        o volume de um edredom casal padrão).</p>
                 </div>
 
                 <!-- Passo 2 -->
@@ -344,7 +334,8 @@
         <h2 class="font-display text-3xl lg:text-4xl font-bold text-lavo-blue mb-4">Roupas limpas, secas e muito mais
             tempo livre.</h2>
         <p class="text-sm text-gray-600 mb-8 max-w-xl mx-auto">Faça parte da comunidade que valoriza o cuidado com as
-            roupas e o respeito ao meio ambiente. Lave de forma inovadora e vá curtir o que realmente importa.</p>
+            roupas e o respeito ao meio ambiente, a Lavô tem o certificado Eureciclo. Lave de forma inovadora e vá
+            curtir o que realmente importa.</p>
         <button
             class="bg-lavo-blue text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-lavo-pink transition-all shadow-xl hover:-translate-y-1">Venha
             para a Lavô CG</button>
@@ -378,7 +369,7 @@
             scrollTrigger: {
                 trigger: "#scrolly-theater",
                 start: "top top",
-                end: "+=200%", // Scroll leve, mas com área suficiente para a transição estendida
+                end: "+=250%",
                 pin: true,
                 scrub: 1
             }
@@ -400,12 +391,11 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 1→2  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene1", { yPercent: -100, duration: 8.0, ease: "power2.inOut" })
-            .to("#scene2", { yPercent: 0, duration: 8.0, ease: "power2.inOut" }, "<")
+            .to("#scene1", { yPercent: -100, duration: 3.0, ease: "power2.inOut" })
+            .to("#scene2", { yPercent: 0, duration: 3.0, ease: "power2.inOut" }, "<")
             // Blusa suja: Ar-scaling (cresce e encolhe)
-            // Trajetória aumentada proporcionalmente para mais visibilidade da blusa suja
-            .to("#blusa-suja", { scale: 1.8, top: "50%", rotation: 30, duration: 4.0, ease: "power2.out" }, "<0.5")
-            .to("#blusa-suja", { scale: 0.1, duration: 4.0, ease: "power2.in" }, ">")
+            .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 1.5, ease: "power2.out" }, "<0.8")
+            .to("#blusa-suja", { scale: 0.1, duration: 1.5, ease: "power2.in" }, ">")
 
             // ─────────────────────────────────────────────────
             // BLOCO 2  ·  CENA 2 ativa  (~33% → ~66%)
@@ -435,12 +425,11 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 2→3  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene2", { yPercent: -100, duration: 8.0, ease: "power2.inOut" })
-            .to("#scene3", { yPercent: 0, duration: 8.0, ease: "power2.inOut" }, "<")
+            .to("#scene2", { yPercent: -100, duration: 3.0, ease: "power2.inOut" })
+            .to("#scene3", { yPercent: 0, duration: 3.0, ease: "power2.inOut" }, "<")
             // Blusa limpa: Ar-scaling (cresce e encolhe)
-            // Trajetória aumentada para visualização mais longa da camisa limpa
-            .to("#blusa-limpa", { scale: 1.8, top: "45%", duration: 4.0, ease: "power2.out" }, "<")
-            .to("#blusa-limpa", { scale: 0.1, duration: 4.0, ease: "power2.in" }, ">")
+            .to("#blusa-limpa", { scale: 1.5, top: "45%", duration: 1.5, ease: "power2.out" }, "<")
+            .to("#blusa-limpa", { scale: 0.1, duration: 1.5, ease: "power2.in" }, ">")
             .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "+=0.05")
 
             // ─────────────────────────────────────────────────
@@ -449,7 +438,7 @@
             // ─────────────────────────────────────────────────
 
             .set("#text-title", { textContent: "Roupas limpas, secas e muito mais tempo livre.", color: "#5AC3E9", y: 20 })
-            .set("#text-subtitle", { textContent: "Faça parte da comunidade que valoriza o cuidado com as roupas e o respeito ao meio ambiente.", y: 20 })
+            .set("#text-subtitle", { textContent: "Faça parte da comunidade que valoriza o cuidado com as roupas e o respeito ao meio ambiente, a Lavô tem o certificado Eureciclo.", y: 20 })
 
             .to("#text-title", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" })
             .to("#text-subtitle", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "<0.1")
