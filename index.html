@@ -72,48 +72,70 @@
         </div>
     </header>
 
-
+    <!-- Leaf Overlays -->
+    <div id="leaf-container" class="fixed inset-0 pointer-events-none z-[45] overflow-hidden">
+        <!-- Top Left -->
+        <img src="./assets/folha que vai ficar na esquerda em cima e vai ficar também na direita em baixo.png.png"
+            class="absolute top-0 left-0 w-20 md:w-40 lg:w-56 -translate-x-6 -translate-y-6 md:-translate-x-10 md:-translate-y-10 drop-shadow-lg opacity-90">
+        <!-- Bottom Right -->
+        <img src="./assets/folha que vai ficar na esquerda em cima e vai ficar também na direita em baixo.png.png"
+            class="absolute bottom-0 right-0 w-20 md:w-40 lg:w-56 translate-x-6 translate-y-6 md:translate-x-10 md:translate-y-10 rotate-180 drop-shadow-lg opacity-90">
+        <!-- Top Right -->
+        <img src="./assets/folha que vai ficar na direita em cima e vai ficar também na esquerda em baixo.png.png"
+            class="absolute top-0 right-0 w-20 md:w-40 lg:w-56 translate-x-6 -translate-y-6 md:translate-x-10 md:-translate-y-10 drop-shadow-lg opacity-90">
+        <!-- Bottom Left -->
+        <img src="./assets/folha que vai ficar na direita em cima e vai ficar também na esquerda em baixo.png.png"
+            class="absolute bottom-0 left-0 w-20 md:w-40 lg:w-56 -translate-x-6 translate-y-6 md:-translate-x-10 md:translate-y-10 rotate-180 drop-shadow-lg opacity-90">
+    </div>
 
     <div id="scrolly-theater"
-        class="h-screen w-full relative overflow-hidden bg-lavo-bg flex flex-col items-center justify-center pt-20">
+        class="h-screen w-full relative overflow-hidden bg-lavo-bg flex flex-col pt-24 pb-12 px-6 sm:px-12 lg:px-24">
 
-        <div class="absolute top-12 md:top-20 w-full text-center z-20 px-4 sm:px-6 pointer-events-none">
+        <!-- Área de Textos -->
+        <div class="w-full text-center z-20 pointer-events-none flex-shrink-0 mb-6 md:mb-12">
             <h1 id="text-title"
-                class="font-display text-3xl lg:text-5xl font-bold text-lavo-blue leading-tight tracking-tight drop-shadow-sm">
+                class="font-display text-3xl md:text-5xl font-bold text-lavo-blue leading-tight tracking-tight drop-shadow-sm max-w-4xl mx-auto">
                 Chega de perder a semana lavando roupa.
             </h1>
             <p id="text-subtitle"
-                class="text-sm lg:text-base text-gray-700 mt-3 font-medium opacity-100 transition-opacity max-w-xl mx-auto drop-shadow-sm">
+                class="text-sm md:text-base lg:text-lg text-gray-700 mt-4 font-medium opacity-100 transition-opacity max-w-2xl mx-auto drop-shadow-sm">
                 Conheça a Lavô Campina Grande. A sua lavanderia de autoatendimento inteligente: rápida, econômica e 100%
                 focada na sua praticidade.
             </p>
         </div>
 
-        <div id="scene1" class="absolute inset-0 flex items-center justify-center z-10 mt-44 md:mt-32 px-4">
-            <img src="./assets/cena1-pilha.png"
-                class="w-full max-w-xl max-h-[45vh] md:max-h-[60vh] object-contain relative top-10">
+        <!-- Área de Imagens (Cenas) -->
+        <div class="relative w-full flex-grow flex items-start md:items-center justify-center">
+            <div id="scene1"
+                class="absolute inset-0 flex items-start md:items-center justify-center z-10 px-2 pb-6 pt-4 md:pt-0">
+                <img src="./assets/cena1-pilha.png"
+                    class="w-full max-w-[18rem] md:max-w-xl max-h-full object-contain relative transition-all">
+            </div>
+
+            <div id="scene2"
+                class="absolute inset-0 flex items-start md:items-center justify-center z-40 px-2 pb-6 pt-4 md:pt-0">
+                <img src="./assets/maquina.png" id="maquina"
+                    class="w-full max-w-[18rem] md:max-w-[34rem] max-h-full object-contain drop-shadow-2xl transition-all">
+            </div>
+
+            <div id="scene3"
+                class="absolute inset-0 flex items-start md:items-center justify-center z-10 px-2 pb-6 pt-4 md:pt-0">
+                <img src="./assets/cena4-dobrando.png"
+                    class="w-full max-w-[20rem] md:max-w-2xl max-h-full object-contain relative transition-all">
+            </div>
+
+            <img src="./assets/blusa-suja.png" id="blusa-suja"
+                class="absolute w-20 md:w-36 top-[20%] md:top-[40%] left-1/2 -translate-x-1/2 z-[5] pointer-events-none">
+
+            <img src="./assets/blusa-limpa.png" id="blusa-limpa"
+                class="absolute w-28 md:w-48 top-[20%] md:top-[40%] left-1/2 -translate-x-1/2 z-[25] opacity-0 pointer-events-none">
         </div>
-
-        <div id="scene2" class="absolute inset-0 flex items-center justify-center z-40 mt-44 md:mt-32 px-4">
-            <img src="./assets/maquina.png" id="maquina"
-                class="w-full max-w-[34rem] max-h-[50vh] md:max-h-[65vh] object-contain drop-shadow-2xl">
-        </div>
-
-        <div id="scene3" class="absolute inset-0 flex items-center justify-center z-10 mt-44 md:mt-32 px-4">
-            <img src="./assets/cena4-dobrando.png" class="w-full max-w-2xl object-contain relative top-10">
-        </div>
-
-        <img src="./assets/blusa-suja.png" id="blusa-suja"
-            class="absolute w-36 top-[60%] left-1/2 -translate-x-1/2 z-[5]">
-
-        <img src="./assets/blusa-limpa.png" id="blusa-limpa"
-            class="absolute w-48 top-1/2 left-1/2 -translate-x-1/2 z-[25] opacity-0">
 
     </div>
 
     <!-- ================= ETAPA 1: Cronograma e Produtos ================= -->
     <section id="efficiency-section" class="py-24 bg-lavo-bg relative z-40">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-5xl mx-auto px-6 sm:px-12 lg:px-24">
             <div class="text-center mb-16">
                 <h2 class="font-display text-4xl lg:text-5xl font-bold text-lavo-blue mb-4 stagger-efficiency">O seu
                     tempo é precioso.</h2>
@@ -148,7 +170,7 @@
     </section>
 
     <section id="products-section" class="py-24 bg-white relative z-40 border-t border-gray-100 overflow-hidden">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-5xl mx-auto px-6 sm:px-12 lg:px-24">
             <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
                 <div class="w-full lg:w-1/2 products-text">
                     <span class="text-xs font-bold tracking-widest text-lavo-pink uppercase mb-4 block">Parceria
@@ -199,7 +221,7 @@
 
     <!-- ================= ETAPA 2: Galeria Bento Grid e Passo a Passo ================= -->
     <section id="gallery-section" class="py-24 bg-lavo-bg relative z-40 border-t border-gray-100">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-5xl mx-auto px-6 sm:px-12 lg:px-24">
             <div class="text-center mb-16">
                 <h2 class="font-display text-4xl lg:text-5xl font-bold text-lavo-blue mb-4 stagger-gallery">O espaço
                     ideal para a sua espera.</h2>
@@ -241,7 +263,7 @@
     </section>
 
     <section id="how-to-use-section" class="py-24 bg-white relative z-40 border-t border-gray-100">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-5xl mx-auto px-6 sm:px-12 lg:px-24">
             <h2 class="font-display text-4xl lg:text-5xl font-bold text-lavo-blue text-center mb-16 how-to-title">
                 Comodidade em 4 passos.</h2>
 
@@ -318,7 +340,7 @@
         </div>
     </section>
 
-    <section class="py-32 bg-white text-center relative z-40 border-t border-gray-100">
+    <section class="py-32 px-6 sm:px-12 lg:px-24 bg-white text-center relative z-40 border-t border-gray-100">
         <h2 class="font-display text-3xl lg:text-4xl font-bold text-lavo-blue mb-4">Roupas limpas, secas e muito mais
             tempo livre.</h2>
         <p class="text-sm text-gray-600 mb-8 max-w-xl mx-auto">Faça parte da comunidade que valoriza o cuidado com as
@@ -356,9 +378,9 @@
             scrollTrigger: {
                 trigger: "#scrolly-theater",
                 start: "top top",
-                end: "+=450%", // Scroll ajustado e simétrico
+                end: "+=200%", // Scroll leve, mas com área suficiente para a transição estendida
                 pin: true,
-                scrub: 2
+                scrub: 1
             }
         });
 
@@ -378,12 +400,12 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 1→2  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene1", { yPercent: -100, duration: 3.0, ease: "power2.inOut" })
-            .to("#scene2", { yPercent: 0, duration: 3.0, ease: "power2.inOut" }, "<")
+            .to("#scene1", { yPercent: -100, duration: 8.0, ease: "power2.inOut" })
+            .to("#scene2", { yPercent: 0, duration: 8.0, ease: "power2.inOut" }, "<")
             // Blusa suja: Ar-scaling (cresce e encolhe)
-            // Começa pequena, espera o fundo se mover um pouco (delay 0.8), e depois cresce
-            .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 1.5, ease: "power2.out" }, "<0.8")
-            .to("#blusa-suja", { scale: 0.1, duration: 1.5, ease: "power2.in" }, ">")
+            // Trajetória aumentada proporcionalmente para mais visibilidade da blusa suja
+            .to("#blusa-suja", { scale: 1.8, top: "50%", rotation: 30, duration: 4.0, ease: "power2.out" }, "<0.5")
+            .to("#blusa-suja", { scale: 0.1, duration: 4.0, ease: "power2.in" }, ">")
 
             // ─────────────────────────────────────────────────
             // BLOCO 2  ·  CENA 2 ativa  (~33% → ~66%)
@@ -413,11 +435,12 @@
             // ─────────────────────────────────────────────────
             // TRANSIÇÃO 2→3  (cenas se movem com texto fora)
             // ─────────────────────────────────────────────────
-            .to("#scene2", { yPercent: -100, duration: 3.0, ease: "power2.inOut" })
-            .to("#scene3", { yPercent: 0, duration: 3.0, ease: "power2.inOut" }, "<")
+            .to("#scene2", { yPercent: -100, duration: 8.0, ease: "power2.inOut" })
+            .to("#scene3", { yPercent: 0, duration: 8.0, ease: "power2.inOut" }, "<")
             // Blusa limpa: Ar-scaling (cresce e encolhe)
-            .to("#blusa-limpa", { scale: 1.5, top: "45%", duration: 1.5, ease: "power2.out" }, "<")
-            .to("#blusa-limpa", { scale: 0.1, duration: 1.5, ease: "power2.in" }, ">")
+            // Trajetória aumentada para visualização mais longa da camisa limpa
+            .to("#blusa-limpa", { scale: 1.8, top: "45%", duration: 4.0, ease: "power2.out" }, "<")
+            .to("#blusa-limpa", { scale: 0.1, duration: 4.0, ease: "power2.in" }, ">")
             .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "+=0.05")
 
             // ─────────────────────────────────────────────────
