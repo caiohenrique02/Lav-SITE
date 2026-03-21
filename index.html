@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lavô | Lavanderia Descomplicada</title>
+    <meta name="description" content="Lavô Campina Grande — Lavanderia de autoatendimento inteligente. Roupas limpas em até 80 minutos com insumos premium.">
 
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
@@ -17,541 +17,835 @@
             theme: {
                 extend: {
                     colors: {
-                        lavo: { bg: '#FAF9F6', pink: '#EE3366', blue: '#0055A4', lightBlue: '#5AC3E9', purple: '#6633CC' }
+                        lavo: {
+                            bg: '#FAF9F6',
+                            cream: '#F5F0EB',
+                            pink: '#EE3366',
+                            pinkDark: '#CC1F4E',
+                            blue: '#0055A4',
+                            blueDark: '#003D7A',
+                            lightBlue: '#5AC3E9',
+                            purple: '#6633CC',
+                            gold: '#C8A96E'
+                        }
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+                        sans: ['Blinker', 'system-ui', 'sans-serif'],
                         display: ['Playfair Display', 'Georgia', 'serif']
                     }
                 }
             }
         }
     </script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Blinker:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #FAF9F6;
             color: #333;
             overflow-x: hidden;
+            font-family: 'Blinker', sans-serif;
         }
 
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
-
         ::-webkit-scrollbar-track {
             background: transparent;
         }
-
         ::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
+            background: rgba(0,85,164,0.2);
             border-radius: 10px;
         }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,85,164,0.4);
+        }
+
+        /* Header glassmorphism */
+        .header-scrolled {
+            background: rgba(250, 249, 246, 0.7) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.06) !important;
+        }
+
+        /* Hero gradient overlay */
+        .hero-gradient {
+            background: linear-gradient(135deg, 
+                rgba(250,249,246,0.97) 0%, 
+                rgba(250,249,246,0.92) 40%, 
+                rgba(250,249,246,0.7) 70%, 
+                rgba(250,249,246,0.3) 100%);
+        }
+
+        /* Premium section dividers */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,85,164,0.12), transparent);
+        }
+
+        /* Elegant underline animation */
+        .nav-link {
+            position: relative;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #EE3366, #6633CC);
+            border-radius: 2px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Premium card style */
+        .premium-card {
+            background: #fff;
+            border-radius: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,85,164,0.04);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .premium-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,85,164,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            border-color: rgba(0,85,164,0.08);
+        }
+
+        /* Bento grid items */
+        .bento-item {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .bento-item img {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Step number watermark */
+        .step-watermark {
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            position: absolute;
+            top: -1.5rem;
+            left: -0.5rem;
+            opacity: 0.04;
+            pointer-events: none;
+            color: #0055A4;
+        }
+
+        /* Gradient text utility */
+        .gradient-text {
+            background: linear-gradient(135deg, #0055A4, #5AC3E9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Breathing CTA */
+        @keyframes breathe {
+            0%, 100% { transform: translateY(0); box-shadow: 0 8px 30px rgba(238,51,102,0.3); }
+            50% { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(238,51,102,0.4); }
+        }
+        .cta-breathe {
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        /* Footer gradient */
+        .footer-gradient {
+            background: linear-gradient(180deg, #0055A4 0%, #003D7A 100%);
+        }
+
+        /* Subtle pattern for sections */
+        .pattern-dots {
+            background-image: radial-gradient(rgba(0,85,164,0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Hero image mask */
+        .hero-image-container {
+            mask-image: linear-gradient(to left, black 60%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+        }
+
+        /* Elements are revealed by GSAP — no default hidden state */
     </style>
 </head>
 
 <body class="font-sans antialiased selection:bg-lavo-pink selection:text-white">
 
-    <header
-        class="fixed top-0 w-full px-4 py-2 md:px-8 md:py-3 z-50 flex justify-between items-center bg-lavo-bg/90 backdrop-blur-sm border-b border-gray-100">
-        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-6 md:h-12 object-contain">
-        <div class="flex items-center gap-4 md:gap-8">
-            <nav class="hidden md:flex items-center gap-6">
-                <a href="#efficiency-section"
-                    class="text-sm font-bold text-gray-600 hover:text-lavo-pink transition-colors">Tempo</a>
-                <a href="#products-section"
-                    class="text-sm font-bold text-gray-600 hover:text-lavo-pink transition-colors">Insumos</a>
-                <a href="#gallery-section"
-                    class="text-sm font-bold text-gray-600 hover:text-lavo-pink transition-colors">Espaço</a>
-            </nav>
-            <a href="#how-to-use-section"
-                class="bg-lavo-pink text-white px-5 py-1.5 md:px-8 md:py-2 rounded-full text-xs md:text-sm font-bold hover:bg-lavo-purple transition-all shadow-md inline-block">Como
-                Usar</a>
-        </div>
+    <!-- ========== HEADER (Floating Centered Pill) ========== -->
+    <header id="main-header"
+        class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6 md:gap-8 px-5 py-3 md:px-8 md:py-3 rounded-full transition-all duration-500"
+        style="background: transparent;">
+        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-7 md:h-10 object-contain">
+        <nav class="hidden md:flex items-center gap-6">
+            <a href="#efficiency-section" class="nav-link text-gray-600 hover:text-lavo-blue transition-colors">Tempo</a>
+            <a href="#products-section" class="nav-link text-gray-600 hover:text-lavo-blue transition-colors">Insumos</a>
+            <a href="#gallery-section" class="nav-link text-gray-600 hover:text-lavo-blue transition-colors">Espaço</a>
+            <a href="#how-to-use-section" class="nav-link text-gray-600 hover:text-lavo-blue transition-colors">Como Usar</a>
+        </nav>
+        <a href="#cta-section"
+            class="bg-gradient-to-r from-lavo-pink to-lavo-purple text-white px-6 py-2 md:px-8 md:py-2.5 rounded-full text-sm font-bold hover:shadow-lg hover:shadow-lavo-pink/20 transition-all duration-300 hover:-translate-y-0.5">
+            Venha nos Conhecer
+        </a>
     </header>
 
-    <!-- Leaf Overlays -->
-    <div id="leaf-container" class="fixed inset-0 pointer-events-none z-[45] overflow-hidden">
+    <!-- ========== LEAF OVERLAYS ========== -->
+    <div id="leaf-container" class="fixed inset-0 pointer-events-none z-[40] overflow-hidden">
         <!-- Top Left -->
         <img src="./assets/folha que vai ficar na esquerda em cima e vai ficar também na direita em baixo.png.png"
-            class="absolute top-0 left-0 w-20 md:w-40 lg:w-56 -translate-x-6 -translate-y-6 md:-translate-x-10 md:-translate-y-10 drop-shadow-lg opacity-90">
-        <!-- Bottom Right -->
-        <img src="./assets/folha que vai ficar na esquerda em cima e vai ficar também na direita em baixo.png.png"
-            class="absolute bottom-0 right-0 w-20 md:w-40 lg:w-56 translate-x-6 translate-y-6 md:translate-x-10 md:translate-y-10 rotate-180 drop-shadow-lg opacity-90">
+            class="absolute top-0 left-0 w-16 md:w-36 lg:w-48 -translate-x-4 -translate-y-4 md:-translate-x-6 md:-translate-y-6 drop-shadow-lg opacity-80">
         <!-- Top Right -->
         <img src="./assets/folha que vai ficar na direita em cima e vai ficar também na esquerda em baixo.png.png"
-            class="absolute top-0 right-0 w-20 md:w-40 lg:w-56 translate-x-6 -translate-y-6 md:translate-x-10 md:-translate-y-10 drop-shadow-lg opacity-90">
+            class="absolute top-0 right-0 w-16 md:w-36 lg:w-48 translate-x-4 -translate-y-4 md:translate-x-6 md:-translate-y-6 drop-shadow-lg opacity-80">
+        <!-- Bottom Right -->
+        <img src="./assets/folha que vai ficar na esquerda em cima e vai ficar também na direita em baixo.png.png"
+            class="absolute bottom-0 right-0 w-16 md:w-36 lg:w-48 translate-x-4 translate-y-4 md:translate-x-6 md:translate-y-6 rotate-180 drop-shadow-lg opacity-80">
         <!-- Bottom Left -->
         <img src="./assets/folha que vai ficar na direita em cima e vai ficar também na esquerda em baixo.png.png"
-            class="absolute bottom-0 left-0 w-20 md:w-40 lg:w-56 -translate-x-6 translate-y-6 md:-translate-x-10 md:translate-y-10 rotate-180 drop-shadow-lg opacity-90">
+            class="absolute bottom-0 left-0 w-16 md:w-36 lg:w-48 -translate-x-4 translate-y-4 md:-translate-x-6 md:translate-y-6 rotate-180 drop-shadow-lg opacity-80">
     </div>
 
-    <div id="scrolly-theater" class="h-screen w-full relative overflow-hidden bg-lavo-bg">
-
-        <div
-            class="absolute top-[12vh] md:top-[16vh] left-0 w-full text-center z-20 px-6 sm:px-12 lg:px-24 pointer-events-none">
-            <h1 id="text-title"
-                class="font-display text-3xl md:text-5xl font-bold text-lavo-blue leading-tight tracking-tight drop-shadow-sm max-w-4xl mx-auto">
-                Chega de perder o dia inteiro lavando roupa.
-            </h1>
-            <p id="text-subtitle"
-                class="text-sm md:text-lg text-gray-700 mt-4 font-medium opacity-100 transition-opacity max-w-2xl mx-auto drop-shadow-sm">
-                Conheça a Lavô Campina Grande. A sua lavanderia de autoatendimento inteligente: rápida, econômica e 100%
-                focada na sua praticidade.
-            </p>
+    <!-- ========== HERO SECTION ========== -->
+    <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+        <!-- Background image (right side) -->
+        <div class="absolute inset-0 hero-image-container">
+            <img src="./assets/cena1-pilha.png"
+                id="hero-image"
+                alt="Pilha de roupas"
+                class="absolute right-0 top-1/2 -translate-y-1/2 h-[70vh] md:h-[80vh] object-contain opacity-30 md:opacity-50"
+                style="right: 5%;">
         </div>
 
-        <div id="scene1" class="absolute inset-0 flex items-start justify-center z-10 px-6 pt-[38vh] md:pt-[40vh]">
-            <img src="./assets/cena1-pilha.png" class="w-full max-w-[16rem] md:max-w-xl max-h-[50vh] object-contain">
+        <!-- Gradient overlay for text legibility -->
+        <div class="absolute inset-0 hero-gradient"></div>
+
+        <!-- Decorative blob -->
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-lavo-lightBlue/10 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-72 h-72 bg-lavo-pink/5 rounded-full filter blur-3xl"></div>
+
+        <!-- Hero content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 pt-28 pb-16 w-full">
+            <div class="max-w-2xl">
+                <!-- Small label -->
+                <div id="hero-label" class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-lavo-blue/5 border border-lavo-blue/10">
+                    <div class="w-2 h-2 rounded-full bg-lavo-pink animate-pulse"></div>
+                    <span class="text-xs font-bold text-lavo-blue tracking-wider uppercase">Campina Grande · PB</span>
+                </div>
+
+                <!-- Main heading -->
+                <h1 id="hero-title" class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-lavo-blue leading-[1.1] tracking-tight mb-6">
+                    Chega de perder o dia inteiro lavando roupa.
+                </h1>
+
+                <!-- Subtitle -->
+                <p id="hero-subtitle" class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8 max-w-lg font-light">
+                    Conheça a Lavô — a sua lavanderia de autoatendimento inteligente: rápida, econômica e 100% focada na sua praticidade.
+                </p>
+
+                <!-- CTA buttons -->
+                <div id="hero-cta" class="flex flex-wrap gap-4">
+                    <a href="#how-to-use-section"
+                        class="bg-gradient-to-r from-lavo-pink to-lavo-pinkDark text-white px-10 py-4 rounded-full text-base font-bold hover:shadow-xl hover:shadow-lavo-pink/25 transition-all duration-300 hover:-translate-y-1">
+                        Como Funciona
+                    </a>
+                    <a href="#gallery-section"
+                        class="bg-white text-lavo-blue px-10 py-4 rounded-full text-base font-bold border-2 border-lavo-blue/10 hover:border-lavo-blue/30 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                        Conheça o Espaço
+                    </a>
+                </div>
+
+                <!-- Trust indicators -->
+                <div id="hero-trust" class="flex items-center gap-8 mt-10 pt-6 border-t border-gray-200/50">
+                    <div>
+                        <span class="text-3xl font-black text-lavo-blue">35<span class="text-lavo-pink">min</span></span>
+                        <p class="text-xs text-gray-500 mt-1 font-semibold">Lavagem</p>
+                    </div>
+                    <div class="w-px h-10 bg-gray-200"></div>
+                    <div>
+                        <span class="text-3xl font-black text-lavo-blue">45<span class="text-lavo-pink">min</span></span>
+                        <p class="text-xs text-gray-500 mt-1 font-semibold">Secagem</p>
+                    </div>
+                    <div class="w-px h-10 bg-gray-200"></div>
+                    <div>
+                        <span class="text-3xl font-black text-lavo-blue">100<span class="text-lavo-pink">%</span></span>
+                        <p class="text-xs text-gray-500 mt-1 font-semibold">Automático</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="scene2" class="absolute inset-0 flex items-start justify-center z-40 px-6 pt-[38vh] md:pt-[40vh]">
-            <img src="./assets/maquina.png" id="maquina"
-                class="w-full max-w-[16rem] md:max-w-[34rem] max-h-[50vh] object-contain drop-shadow-2xl">
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+            <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">Explore</span>
+            <div class="w-5 h-8 border-2 border-gray-300 rounded-full flex justify-center pt-1.5">
+                <div class="w-1 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+            </div>
         </div>
+    </section>
 
-        <div id="scene3" class="absolute inset-0 flex items-start justify-center z-10 px-6 pt-[38vh] md:pt-[40vh]">
-            <img src="./assets/cena4-dobrando.png"
-                class="w-full max-w-[20rem] md:max-w-2xl max-h-[50vh] object-contain">
-        </div>
-
-        <img src="./assets/blusa-suja.png" id="blusa-suja"
-            class="absolute w-20 md:w-36 top-[55%] left-1/2 -translate-x-1/2 z-[5] pointer-events-none">
-
-        <img src="./assets/blusa-limpa.png" id="blusa-limpa"
-            class="absolute w-28 md:w-48 top-[55%] left-1/2 -translate-x-1/2 z-[25] opacity-0 pointer-events-none">
-
-    </div>
-
-    <!-- ================= ETAPA 1: Cronograma e Produtos ================= -->
-    <section id="efficiency-section" class="py-24 bg-lavo-bg relative z-40">
-        <div class="max-w-5xl mx-auto px-6 sm:px-12 lg:px-24">
-            <div class="text-center mb-16">
-                <h2 class="font-display text-4xl lg:text-5xl font-bold text-lavo-blue mb-4 stagger-efficiency">O seu
-                    tempo é precioso.</h2>
-                <p class="text-gray-600 text-lg max-w-2xl mx-auto stagger-efficiency">Um processo inteligente, desenhado
-                    para que você gaste menos tempo lavando e mais tempo vivendo.</p>
+    <!-- ========== SECTION: EFICIÊNCIA ========== -->
+    <div class="section-divider"></div>
+    <section id="efficiency-section" class="py-20 md:py-24 bg-lavo-bg relative z-10">
+        <div class="max-w-6xl mx-auto px-6 sm:px-12 lg:px-24">
+            <div class="text-center mb-14">
+                <span class="stagger-efficiency inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-4">Eficiência</span>
+                <h2 class="stagger-efficiency font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue mb-5">O seu tempo é precioso.</h2>
+                <p class="stagger-efficiency text-gray-500 text-lg max-w-2xl mx-auto leading-relaxed font-light">
+                    Um processo inteligente, desenhado para que você gaste menos tempo lavando e mais tempo vivendo.
+                </p>
             </div>
 
-            <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 mt-12 relative">
+            <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 lg:gap-12">
                 <!-- Card Lavagem -->
-                <div
-                    class="efficiency-card bg-white p-10 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-50 flex-1 max-w-md w-full relative z-10">
-                    <img src="./assets/Sil na Lavadora.jpg" alt="Sil na Lavadora"
-                        class="w-full h-48 object-cover rounded-2xl mb-6 shadow-sm">
-                    <h3 class="font-display text-4xl font-bold text-lavo-blue mb-2">35 min</h3>
-                    <h4 class="font-sans text-xl font-bold text-gray-800 mb-3">Lavagem Profissional</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">Dosagem completamente automática de insumos.
-                        Água na medida certa sem desperdício e tecnologia que limpa sem agredir as roupas.</p>
+                <div class="efficiency-card premium-card p-8 lg:p-10 flex-1 max-w-md w-full mx-auto">
+                    <div class="overflow-hidden rounded-2xl mb-7">
+                        <img src="./assets/Sil na Lavadora.jpg" alt="Sil na Lavadora"
+                            class="w-full h-52 object-cover transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="flex items-baseline gap-2 mb-3">
+                        <h3 class="font-display text-5xl font-black gradient-text">35</h3>
+                        <span class="text-xl font-bold text-lavo-pink">min</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Lavagem Profissional</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed font-light">
+                        Dosagem completamente automática de insumos. Água na medida certa sem desperdício e tecnologia que limpa sem agredir as roupas.
+                    </p>
                 </div>
 
                 <!-- Card Secagem -->
-                <div
-                    class="efficiency-card bg-white p-10 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-50 flex-1 max-w-md w-full relative z-10 md:translate-y-8">
-                    <img src="./assets/Sil na secadora.jpg" alt="Sil na Secadora"
-                        class="w-full h-48 object-cover rounded-2xl mb-6 shadow-sm">
-                    <h3 class="font-display text-4xl font-bold text-lavo-pink mb-2">45 min</h3>
-                    <h4 class="font-sans text-xl font-bold text-gray-800 mb-3">Secagem Profissional</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">3 tipos de temperatura para atender diversos tipos
-                        de tecidos. As roupas saem quentinhas, prontas para dobrar, guardar ou até vestir na hora, e a
-                        secadora elimina 99% das bactérias e fungos.</p>
+                <div class="efficiency-card premium-card p-8 lg:p-10 flex-1 max-w-md w-full mx-auto md:translate-y-8">
+                    <div class="overflow-hidden rounded-2xl mb-7">
+                        <img src="./assets/Sil na secadora.jpg" alt="Sil na Secadora"
+                            class="w-full h-52 object-cover transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="flex items-baseline gap-2 mb-3">
+                        <h3 class="font-display text-5xl font-black text-lavo-pink">45</h3>
+                        <span class="text-xl font-bold text-lavo-blue">min</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Secagem Profissional</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed font-light">
+                        3 tipos de temperatura para diversos tecidos. As roupas saem quentinhas, prontas para dobrar, guardar ou vestir na hora — a secadora elimina 99% das bactérias e fungos.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="products-section" class="py-24 bg-white relative z-40 border-t border-gray-100 overflow-hidden">
-        <div class="max-w-5xl mx-auto px-6 sm:px-12 lg:px-24">
+    <!-- ========== SECTION: PRODUTOS ========== -->
+    <div class="section-divider"></div>
+    <section id="products-section" class="py-20 md:py-24 bg-white relative z-10 overflow-hidden pattern-dots">
+        <!-- Decorative background -->
+        <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-lavo-blue/[0.02] rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="max-w-6xl mx-auto px-6 sm:px-12 lg:px-24">
             <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
                 <div class="w-full lg:w-1/2 products-text">
-                    <h2 class="font-display text-4xl lg:text-5xl font-bold text-lavo-blue mb-6">Qualidade premium em
-                        cada gota.</h2>
-                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
-                        Sabemos que suas roupas exigem o máximo de cuidado. Por isso, abastecemos nossas máquinas com
-                        uma
-                        linha <b class="text-lavo-blue font-bold">Premium Superconcentrada</b> de alta performance.
+                    <span class="inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-4">Qualidade</span>
+                    <h2 class="font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue mb-6 leading-tight">
+                        Qualidade premium em cada gota.
+                    </h2>
+                    <p class="text-gray-500 text-lg mb-10 leading-relaxed font-light">
+                        Sabemos que suas roupas exigem o máximo de cuidado. Por isso, abastecemos nossas máquinas com uma linha
+                        <strong class="text-lavo-blue font-bold">Premium Superconcentrada</strong> de alta performance.
                     </p>
 
-                    <div class="space-y-6">
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="w-12 h-12 rounded-xl bg-lavo-blue/5 border border-lavo-blue/10 flex items-center justify-center flex-shrink-0 mt-1">
-                                <span class="font-extrabold text-lavo-blue text-xs">EXTRA</span>
+                    <div class="space-y-7">
+                        <div class="flex items-start gap-5 group">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-lavo-blue/10 to-lavo-blue/5 border border-lavo-blue/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                <span class="font-black text-lavo-blue text-xs tracking-wider">EXTRA</span>
                             </div>
                             <div>
-                                <h3 class="font-sans font-bold text-xl text-gray-800 mb-1">Sabão Profissional</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed">Tecnologia de baixa formação de espuma
-                                    para maximizar a limpeza e preservar as cores e fibras das roupas.</p>
+                                <h3 class="font-bold text-xl text-gray-800 mb-1">Sabão Profissional</h3>
+                                <p class="text-sm text-gray-500 leading-relaxed font-light">
+                                    Tecnologia de baixa formação de espuma para maximizar a limpeza e preservar as cores e fibras das roupas.
+                                </p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="w-12 h-12 rounded-xl bg-lavo-pink/5 border border-lavo-pink/10 flex items-center justify-center flex-shrink-0 mt-1">
-                                <span class="font-extrabold text-lavo-pink text-xs">SOFT</span>
+                        <div class="flex items-start gap-5 group">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-lavo-pink/10 to-lavo-pink/5 border border-lavo-pink/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                <span class="font-black text-lavo-pink text-xs tracking-wider">SOFT</span>
                             </div>
                             <div>
-                                <h3 class="font-sans font-bold text-xl text-gray-800 mb-1">Amaciante Profissional</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed">Amaciante profissional para garantir a
-                                    maciez e o perfume inconfundível.</p>
+                                <h3 class="font-bold text-xl text-gray-800 mb-1">Amaciante Profissional</h3>
+                                <p class="text-sm text-gray-500 leading-relaxed font-light">
+                                    Amaciante profissional para garantir a maciez e o perfume inconfundível.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="w-full lg:w-1/2 flex justify-center products-image relative">
-                    <div class="absolute inset-0 bg-lavo-blue/5 rounded-[3rem] filter blur-3xl transform scale-105">
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-lavo-blue/5 to-lavo-lightBlue/5 rounded-[3rem] filter blur-3xl transform scale-110"></div>
                     <img src="./assets/insumos.jpeg" alt="Insumos de Alta Qualidade"
-                        class="relative z-10 w-full max-w-lg rounded-[2.5rem] shadow-[0_20px_50px_rgb(0,0,0,0.1)]" />
+                        class="relative z-10 w-full max-w-lg rounded-[2.5rem] shadow-[0_30px_80px_rgba(0,85,164,0.12)]" />
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ================= ETAPA 2: Galeria Bento Grid e Passo a Passo ================= -->
-    <section id="gallery-section" class="py-24 bg-lavo-bg relative z-40 border-t border-gray-100">
-        <div class="max-w-5xl mx-auto px-6 sm:px-12 lg:px-24">
-            <div class="text-center mb-16">
-                <h2 class="font-display text-4xl lg:text-5xl font-bold text-lavo-blue mb-4 stagger-gallery">O espaço
-                    ideal para a sua espera.</h2>
-                <p class="text-gray-600 text-lg max-w-2xl mx-auto stagger-gallery">Nossa loja em Campina Grande foi
-                    projetada 100% pensando no seu conforto, segurança e bem-estar.</p>
+    <!-- ========== SECTION: GALERIA ========== -->
+    <div class="section-divider"></div>
+    <section id="gallery-section" class="py-20 md:py-24 bg-lavo-bg relative z-10">
+        <div class="max-w-6xl mx-auto px-6 sm:px-12 lg:px-24">
+            <div class="text-center mb-20">
+                <span class="stagger-gallery inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-4">Nosso Espaço</span>
+                <h2 class="stagger-gallery font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue mb-5">
+                    O espaço ideal para a sua espera.
+                </h2>
+                <p class="stagger-gallery text-gray-500 text-lg max-w-2xl mx-auto leading-relaxed font-light">
+                    Nossa loja em Campina Grande foi projetada 100% pensando no seu conforto, segurança e bem-estar.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px] md:auto-rows-[300px]">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 auto-rows-[250px] md:auto-rows-[300px]">
                 <!-- Destaque Grande -->
-                <div
-                    class="bento-item md:col-span-2 md:row-span-2 rounded-[2rem] overflow-hidden relative group shadow-sm bg-gray-200">
+                <div class="bento-item md:col-span-2 md:row-span-2 relative group shadow-sm bg-gray-200">
                     <img src="./assets/Cadeiras e mesa para conforto do cliente.jpg" alt="Interior Lavô"
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
-                    <div class="absolute bottom-10 left-10 text-white leading-tight">
-                        <h3 class="font-display font-bold text-3xl">Ambiente Climatizado</h3>
-                        <p class="font-sans text-sm text-gray-200 mt-2">Relaxe com conforto absoluto do início ao fim.
-                        </p>
+                        class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12 text-white leading-tight">
+                        <h3 class="font-display font-bold text-2xl md:text-3xl">Ambiente Climatizado</h3>
+                        <p class="text-sm text-gray-200 mt-2 font-light">Relaxe com conforto absoluto do início ao fim.</p>
                     </div>
                 </div>
                 <!-- Card Menor 1 -->
-                <div class="bento-item rounded-[2rem] overflow-hidden relative group shadow-sm bg-gray-200">
+                <div class="bento-item relative group shadow-sm bg-gray-200">
                     <img src="./assets/Mostrando as 8 máquinas.jpg" alt="Máquinas"
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
-                        <p class="font-sans font-bold text-white text-lg">Tecnologia de Ponta</p>
+                        class="w-full h-full object-cover" />
+                    <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/70 to-transparent">
+                        <p class="font-bold text-white text-lg">Tecnologia de Ponta</p>
                     </div>
                 </div>
                 <!-- Card Menor 2 -->
-                <div class="bento-item rounded-[2rem] overflow-hidden relative group shadow-sm bg-gray-200">
+                <div class="bento-item relative group shadow-sm bg-gray-200">
                     <img src="./assets/Balcão com pessoas dobrando roupas.jpg" alt="Área para dobrar roupas"
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
-                        <p class="font-sans font-bold text-white text-lg">Balcão para dobrar roupas</p>
+                        class="w-full h-full object-cover" />
+                    <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/70 to-transparent">
+                        <p class="font-bold text-white text-lg">Balcão para dobrar roupas</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="how-to-use-section" class="py-24 bg-white relative z-40 border-t border-gray-100">
-        <div class="max-w-5xl mx-auto px-6 sm:px-12 lg:px-24">
-            <h2 class="font-display text-4xl lg:text-5xl font-bold text-lavo-blue text-center mb-16 how-to-title">
-                Comodidade em 4 passos.</h2>
+    <!-- ========== SECTION: VÍDEO ========== -->
+    <div class="section-divider"></div>
+    <section id="video-section" class="py-20 md:py-24 px-6 md:px-12 relative overflow-hidden flex flex-col items-center z-10"
+        style="background: linear-gradient(135deg, #0055A4 0%, #003D7A 40%, #1a1a3e 100%);">
+        <!-- Decorative background -->
+        <div class="absolute inset-0 z-0 opacity-10">
+            <div class="w-full h-full bg-cover bg-center" style="background-image: url('./assets/Mostrando as 8 máquinas.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#003D7A] via-[#003D7A]/80 to-[#003D7A]"></div>
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-12">
+        <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-16">
+            <div class="lg:w-1/2 flex flex-col justify-center text-center lg:text-left">
+                <span class="video-content text-lavo-pink font-bold tracking-[0.2em] text-xs uppercase block mb-4 flex items-center justify-center lg:justify-start gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    Conheça a Lavô por Dentro
+                </span>
+                <h2 class="video-content font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    Veja como é<br><span class="text-lavo-lightBlue italic">Simples e Rápido</span>
+                </h2>
+                <p class="video-content text-white/70 text-lg md:text-xl font-light mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                    Acompanhe o dia a dia da Lavô e veja como nosso processo inteligente transforma a forma como você cuida das suas roupas.
+                </p>
+                <div class="video-content flex justify-center lg:justify-start">
+                    <a href="https://www.instagram.com/lavo.cg" target="_blank"
+                        class="inline-flex items-center gap-3 px-8 py-3 rounded-full text-base font-bold text-white border border-white/20 hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                        Mais no Instagram
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:w-1/2 flex justify-center lg:justify-end w-full">
+                <!-- iPhone Mockup Frame -->
+                <div class="relative w-full max-w-[320px] aspect-[9/19] group video-phone">
+
+                    <!-- Outer Metallic Frame -->
+                    <div class="absolute inset-0 bg-slate-800 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.7)] ring-[8px] ring-slate-700/40 z-0"></div>
+
+                    <!-- Buttons -->
+                    <div class="absolute -left-1 top-24 w-1.5 h-8 bg-slate-600 rounded-l-md z-10"></div>
+                    <div class="absolute -left-1 top-36 w-1.5 h-12 bg-slate-600 rounded-l-md z-10"></div>
+                    <div class="absolute -right-1 top-40 w-1.5 h-16 bg-slate-600 rounded-r-md z-10"></div>
+
+                    <!-- Screen Area -->
+                    <div class="absolute inset-[6px] bg-black rounded-[2.6rem] overflow-hidden border-[4px] border-black z-20 flex items-center justify-center">
+                        <video id="lavoVideo" class="w-full h-full object-cover" autoplay loop muted playsinline>
+                            <!-- O USUÁRIO DEVE INSERIR O LINK DO VÍDEO AQUI -->
+                            <source src="" type="video/mp4">
+                            Seu navegador não suporta vídeos.
+                        </video>
+
+                        <!-- Dynamic Island (Notch) -->
+                        <div class="absolute top-3 inset-x-0 flex justify-center pointer-events-none">
+                            <div class="w-24 h-6 bg-black rounded-full flex items-center justify-center gap-2 px-3">
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#1a1c1e]"></div>
+                                <div class="w-8 h-1 bg-[#1a1c1e] rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <!-- Premium UI Controls -->
+                        <div class="absolute inset-0 flex flex-col justify-between p-6 bg-gradient-to-b from-black/60 via-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 cursor-pointer"
+                            onclick="toggleLavoPlay()">
+                            <div class="flex justify-end">
+                                <button id="lavoMuteBtn" onclick="toggleLavoMute(event)"
+                                    class="w-10 h-10 rounded-full bg-black/20 backdrop-blur-xl flex items-center justify-center text-white border border-white/10 hover:bg-black/40 transition-all">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>
+                                </button>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-4">
+                                <div id="lavoPlayIcon"
+                                    class="w-16 h-16 rounded-full bg-lavo-pink/90 backdrop-blur-md flex items-center justify-center text-white shadow-2xl transform scale-90 group-hover:scale-100 transition-all duration-300">
+                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-white text-[10px] font-bold uppercase tracking-[0.2em] drop-shadow-lg">Lavô CG</p>
+                                    <p class="text-white/60 text-[9px] uppercase tracking-widest mt-1">Toque para pausar</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="h-[3px] w-full bg-white/10 rounded-full overflow-hidden">
+                                    <div id="lavoVideoProgress" class="h-full bg-lavo-pink w-0 transition-all duration-100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION: COMO USAR ========== -->
+    <div class="section-divider"></div>
+    <section id="how-to-use-section" class="py-20 md:py-24 bg-white relative z-10 overflow-hidden">
+        <!-- Decorative -->
+        <div class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-lavo-lightBlue/[0.03] rounded-full filter blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+        <div class="max-w-6xl mx-auto px-6 sm:px-12 lg:px-24">
+            <div class="text-center mb-20">
+                <span class="how-to-title inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-4">Passo a Passo</span>
+                <h2 class="how-to-title font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue">
+                    Comodidade em 4 passos.
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
                 <!-- Passo 1 -->
-                <div class="step-item flex flex-col pt-8 relative">
-                    <div
-                        class="absolute top-0 left-0 text-7xl font-display font-bold text-gray-50 -z-10 tracking-tighter">
-                        1</div>
-                    <div
-                        class="w-12 h-12 bg-lavo-blue/10 text-lavo-blue rounded-xl flex items-center justify-center mb-5 border border-lavo-blue/10 shadow-sm">
+                <div class="step-item relative pt-6">
+                    <div class="step-watermark">1</div>
+                    <div class="w-14 h-14 bg-gradient-to-br from-lavo-blue/10 to-lavo-blue/5 text-lavo-blue rounded-2xl flex items-center justify-center mb-6 border border-lavo-blue/10">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-sans font-bold text-xl text-gray-800 mb-2">Traga as roupas</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Use nosso cesto medidor padrão (até 25 camisetas ou
-                        o volume de um edredom casal padrão).</p>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">Traga as roupas</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed font-light">
+                        Use nosso cesto medidor padrão (até 25 camisetas ou o volume de um edredom casal padrão).
+                    </p>
                 </div>
 
                 <!-- Passo 2 -->
-                <div class="step-item flex flex-col pt-8 relative">
-                    <div
-                        class="absolute top-0 left-0 text-7xl font-display font-bold text-gray-50 -z-10 tracking-tighter">
-                        2</div>
-                    <div
-                        class="w-12 h-12 bg-lavo-blue/10 text-lavo-blue rounded-xl flex items-center justify-center mb-5 border border-lavo-blue/10 shadow-sm">
+                <div class="step-item relative pt-6">
+                    <div class="step-watermark">2</div>
+                    <div class="w-14 h-14 bg-gradient-to-br from-lavo-blue/10 to-lavo-blue/5 text-lavo-blue rounded-2xl flex items-center justify-center mb-6 border border-lavo-blue/10">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                             </path>
                         </svg>
                     </div>
-                    <h3 class="font-sans font-bold text-xl text-gray-800 mb-2">Escolha a máquina</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Coloque na lavadora ou secadora. O sabão e o
-                        amaciante premium já são dosados sozinhos.</p>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">Escolha a máquina</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed font-light">
+                        Coloque na lavadora ou secadora. O sabão e o amaciante premium já são dosados sozinhos.
+                    </p>
                 </div>
 
                 <!-- Passo 3 -->
-                <div class="step-item flex flex-col pt-8 relative">
-                    <div
-                        class="absolute top-0 left-0 text-7xl font-display font-bold text-gray-50 -z-10 tracking-tighter">
-                        3</div>
-                    <div
-                        class="w-12 h-12 bg-lavo-pink/10 text-lavo-pink rounded-xl flex items-center justify-center mb-5 border border-lavo-pink/10 shadow-sm">
+                <div class="step-item relative pt-6">
+                    <div class="step-watermark">3</div>
+                    <div class="w-14 h-14 bg-gradient-to-br from-lavo-pink/10 to-lavo-pink/5 text-lavo-pink rounded-2xl flex items-center justify-center mb-6 border border-lavo-pink/10">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-sans font-bold text-xl text-gray-800 mb-2">Pagamento Digital</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Pague de forma instantânea diretamente no nosso
-                        totem de autoatendimento da loja.</p>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">Pagamento Digital</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed font-light">
+                        Pague de forma instantânea diretamente no nosso totem de autoatendimento da loja.
+                    </p>
                 </div>
 
                 <!-- Passo 4 -->
-                <div class="step-item flex flex-col pt-8 relative">
-                    <div
-                        class="absolute top-0 left-0 text-7xl font-display font-bold text-gray-50 -z-10 tracking-tighter">
-                        4</div>
-                    <div
-                        class="w-12 h-12 bg-lavo-lightBlue/10 text-lavo-lightBlue rounded-xl flex items-center justify-center mb-5 border border-lavo-lightBlue/10 shadow-sm">
+                <div class="step-item relative pt-6">
+                    <div class="step-watermark">4</div>
+                    <div class="w-14 h-14 bg-gradient-to-br from-lavo-lightBlue/10 to-lavo-lightBlue/5 text-lavo-lightBlue rounded-2xl flex items-center justify-center mb-6 border border-lavo-lightBlue/10">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M4.343 6.586c5.657-5.657 14.828-5.657 20.485 0" />
                         </svg>
                     </div>
-                    <h3 class="font-sans font-bold text-xl text-gray-800 mb-2">Aguarde com estilo</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Sente-se, use o Wi-Fi e aproveite nosso ambiente
-                        totalmente climatizado e agradável.</p>
+                    <h3 class="font-bold text-xl text-gray-800 mb-2">Aguarde com estilo</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed font-light">
+                        Sente-se, use o Wi-Fi e aproveite nosso ambiente totalmente climatizado e agradável.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-32 px-6 sm:px-12 lg:px-24 bg-white text-center relative z-40 border-t border-gray-100">
-        <h2 class="font-display text-3xl lg:text-4xl font-bold text-lavo-blue mb-4">Roupas limpas, secas e muito mais
-            tempo livre.</h2>
-        <p class="text-sm text-gray-600 mb-8 max-w-xl mx-auto">Faça parte da comunidade que valoriza o cuidado com as
-            roupas e o respeito ao meio ambiente, a Lavô tem o certificado Eureciclo. Lave de forma inovadora e vá
-            curtir o que realmente importa.</p>
-        <button
-            class="bg-lavo-blue text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-lavo-pink transition-all shadow-xl hover:-translate-y-1">Venha
-            para a Lavô CG</button>
+    <!-- ========== SECTION: CTA FINAL ========== -->
+    <div class="section-divider"></div>
+    <section id="cta-section" class="py-24 md:py-28 px-6 sm:px-12 lg:px-24 relative z-10 overflow-hidden"
+        style="background: linear-gradient(135deg, #0055A4 0%, #003D7A 40%, #1a1a3e 100%);">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-lavo-lightBlue/10 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-72 h-72 bg-lavo-pink/10 rounded-full filter blur-3xl"></div>
+
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <h2 class="cta-content font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                Roupas limpas, secas e muito mais tempo livre.
+            </h2>
+            <p class="cta-content text-base md:text-lg text-blue-100/80 mb-10 max-w-xl mx-auto leading-relaxed font-light">
+                Faça parte da comunidade que valoriza o cuidado com as roupas e o respeito ao meio ambiente — a Lavô tem o certificado Eureciclo. Lave de forma inovadora e vá curtir o que realmente importa.
+            </p>
+            <a href="https://maps.google.com/?q=Lavô+Campina+Grande"
+                target="_blank"
+                class="cta-content cta-breathe inline-block bg-gradient-to-r from-lavo-pink to-lavo-purple text-white px-12 py-5 rounded-full text-lg font-bold hover:shadow-2xl hover:shadow-lavo-pink/30 transition-all duration-300">
+                Venha para a Lavô CG
+            </a>
+        </div>
     </section>
 
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer-gradient text-white py-16 px-6 sm:px-12 lg:px-24 relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+                <!-- Brand -->
+                <div class="max-w-sm">
+                    <img src="./assets/logo Lavô.png" alt="Lavô" class="h-10 md:h-14 object-contain brightness-0 invert mb-6">
+                    <p class="text-blue-100/60 text-sm leading-relaxed font-light">
+                        Lavanderia de autoatendimento inteligente em Campina Grande. Roupas limpas e secas em até 80 minutos.
+                    </p>
+                </div>
+
+                <!-- Location -->
+                <div>
+                    <h4 class="font-bold text-sm tracking-wider uppercase mb-4 text-blue-100/80">Localização</h4>
+                    <a href="https://maps.google.com/?q=Lavô+Campina+Grande" target="_blank"
+                        class="text-blue-100/60 text-sm hover:text-white transition-colors font-light leading-relaxed block">
+                        Campina Grande — PB<br>
+                        <span class="underline underline-offset-4 decoration-blue-100/20 hover:decoration-white transition-colors">Ver no Google Maps →</span>
+                    </a>
+                </div>
+
+                <!-- Social -->
+                <div>
+                    <h4 class="font-bold text-sm tracking-wider uppercase mb-4 text-blue-100/80">Redes Sociais</h4>
+                    <a href="https://www.instagram.com/lavo.cg" target="_blank"
+                        class="inline-flex items-center gap-2 text-blue-100/60 text-sm hover:text-white transition-colors font-light">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                        @lavo.cg
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-blue-100/40 text-xs font-light">&copy; 2025 Lavô. Todos os direitos reservados.</p>
+                <p class="text-blue-100/40 text-xs font-light">Certificado Eureciclo · Lavanderia Sustentável</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-        // ================= ESTADO INICIAL =================
-        gsap.set("#scene2", { yPercent: 100 });
-        gsap.set("#scene3", { yPercent: 100 });
-        gsap.set("#text-title", { opacity: 1 });
-        gsap.set("#text-subtitle", { opacity: 1 });
-        gsap.set("#blusa-suja", { scale: 0.1 });
-        gsap.set("#blusa-limpa", { scale: 0.1, opacity: 0 });
+        // ============ HEADER SCROLL EFFECT ============
+        const header = document.getElementById('main-header');
+        ScrollTrigger.create({
+            start: 'top -80',
+            onUpdate: (self) => {
+                if (self.direction === 1 && window.scrollY > 80) {
+                    header.classList.add('header-scrolled');
+                } else if (window.scrollY <= 80) {
+                    header.classList.remove('header-scrolled');
+                }
+            }
+        });
 
-        /*
-         * ESTRUTURA DA TIMELINE (total = 3 "telas" de scroll = 300%)
-         *
-         *  [0.00] ─── CENA 1: texto visível, pilha de roupas
-         *  [0.25] ─── texto some → transição visual cena1→cena2
-         *  [0.50] ─── CENA 2: texto novo aparece, máquina aparece
-         *  [0.70] ─── texto some → transição visual cena2→cena3
-         *  [1.00] ─── CENA 3: texto final aparece, pessoas dobrando
-         *
-         * Separação clara: textos sempre saem ANTES da transição visual,
-         * e entram DEPOIS que a cena chegou. Zero bleeding entre cenas.
-         */
+        // ============ HERO ANIMATIONS ============
+        // Ensure elements are visible before animating
+        gsap.set(['#main-header','#hero-label','#hero-title','#hero-subtitle','#hero-cta','#hero-trust','#hero-image'], {opacity: 1});
 
-        const tl = gsap.timeline({
+        const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTl
+            .fromTo('#main-header', {y: -40, opacity: 0}, {y: 0, opacity: 1, duration: 0.8, delay: 0.1})
+            .fromTo('#hero-label', {y: 20, opacity: 0}, {y: 0, opacity: 1, duration: 0.6}, '-=0.4')
+            .fromTo('#hero-title', {y: 30, opacity: 0}, {y: 0, opacity: 1, duration: 0.8}, '-=0.3')
+            .fromTo('#hero-subtitle', {y: 20, opacity: 0}, {y: 0, opacity: 1, duration: 0.6}, '-=0.4')
+            .fromTo('#hero-cta', {y: 20, opacity: 0}, {y: 0, opacity: 1, duration: 0.5}, '-=0.3')
+            .fromTo('#hero-trust', {y: 20, opacity: 0}, {y: 0, opacity: 1, duration: 0.5}, '-=0.2')
+            .fromTo('#hero-image', {x: 40, opacity: 0}, {x: 0, opacity: 1, duration: 1, ease: 'power2.out'}, '-=0.8');
+
+        // Parallax hero image
+        gsap.to('#hero-image', {
+            y: -60,
+            ease: 'none',
             scrollTrigger: {
-                trigger: "#scrolly-theater",
-                start: "top top",
-                end: "+=250%",
-                pin: true,
+                trigger: '#hero',
+                start: 'top top',
+                end: 'bottom top',
                 scrub: 1
             }
         });
 
-        // ─────────────────────────────────────────────────
-        // BLOCO 1  ·  CENA 1 ativa  (0% → ~33%)
-        // Texto da cena 1 fica exposto enquanto o usuário
-        // está olhando para a pilha de roupas.
-        // ─────────────────────────────────────────────────
-
-        // Pausa para o usuário ler o texto inicial
-        tl.to({}, { duration: 1.0 })
-
-            // — texto da cena 1 some ANTES de qualquer coisa se mover —
-            .to("#text-title", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" })
-            .to("#text-subtitle", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" }, "<")
-
-            // ─────────────────────────────────────────────────
-            // TRANSIÇÃO 1→2  (cenas se movem com texto fora)
-            // ─────────────────────────────────────────────────
-            .to("#scene1", { yPercent: -100, duration: 3.0, ease: "power2.inOut" })
-            .to("#scene2", { yPercent: 0, duration: 3.0, ease: "power2.inOut" }, "<")
-            // Blusa suja: Ar-scaling (cresce e encolhe)
-            .to("#blusa-suja", { scale: 1.5, top: "50%", rotation: 30, duration: 1.5, ease: "power2.out" }, "<0.8")
-            .to("#blusa-suja", { scale: 0.1, duration: 1.5, ease: "power2.in" }, ">")
-
-            // ─────────────────────────────────────────────────
-            // BLOCO 2  ·  CENA 2 ativa  (~33% → ~66%)
-            // Texto da cena 2 entra SÓ depois que a máquina chegou.
-            // ─────────────────────────────────────────────────
-
-            // define conteúdo enquanto está invisível
-            .set("#text-title", { textContent: "Sua lavagem em apenas 35 minutos.", color: "#EE3366", y: 20 })
-            .set("#text-subtitle", { textContent: "Máquinas de última geração. Insumos premium inclusos. Você coloca, a Lavô cuida do resto.", y: 20 })
-
-            // texto entra suavemente - ANTECIPADO            // texto final - ANTECIPADO (overlap de 0.8s)
-            .to("#text-title", { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, "<0.8")
-            .to("#text-subtitle", { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, "<0.1")
-            .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "<")
-
-            // pequeno vibrado na máquina
-            .to("#maquina", { rotation: 1.5, yoyo: true, repeat: 2, duration: 0.15, ease: "sine.inOut" })
-            .to("#blusa-limpa", { opacity: 1, duration: 0.1 }, "<")
-
-            // pausa — usuário lê o texto da cena 2
-            .to({}, { duration: 1.0 })
-
-            // — texto da cena 2 some ANTES de qualquer coisa se mover —
-            .to("#text-title", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" })
-            .to("#text-subtitle", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" }, "<")
-
-            // ─────────────────────────────────────────────────
-            // TRANSIÇÃO 2→3  (cenas se movem com texto fora)
-            // ─────────────────────────────────────────────────
-            .to("#scene2", { yPercent: -100, duration: 3.0, ease: "power2.inOut" })
-            .to("#scene3", { yPercent: 0, duration: 3.0, ease: "power2.inOut" }, "<")
-            // Blusa limpa: Ar-scaling (cresce e encolhe)
-            .to("#blusa-limpa", { scale: 1.5, top: "45%", duration: 1.5, ease: "power2.out" }, "<")
-            .to("#blusa-limpa", { scale: 0.1, duration: 1.5, ease: "power2.in" }, ">")
-            .to("#blusa-limpa", { opacity: 0, scale: 0.4, duration: 0.15 }, "+=0.05")
-
-            // ─────────────────────────────────────────────────
-            // BLOCO 3  ·  CENA 3 ativa  (~66% → 100%)
-            // Texto da cena 3 entra SÓ depois que a cena chegou.
-            // ─────────────────────────────────────────────────
-
-            .set("#text-title", { textContent: "Roupas limpas, secas e muito mais tempo livre.", color: "#5AC3E9", y: 20 })
-            .set("#text-subtitle", { textContent: "Faça parte da comunidade que valoriza o cuidado com as roupas e o respeito ao meio ambiente, a Lavô tem o certificado Eureciclo.", y: 20 })
-
-            .to("#text-title", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" })
-            .to("#text-subtitle", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "<0.1")
-
-            // pausa final — usuário lê
-            .to({}, { duration: 1.0 });
-
-
-
-
-        // ================= ETAPA 3: Animações GSAP de Entrada =================
-        // Cronograma de Eficiência 
-        gsap.from(".stagger-efficiency", {
-            scrollTrigger: { trigger: "#efficiency-section", start: "top 80%" },
-            y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power2.out"
+        // ============ EFFICIENCY SECTION ============
+        gsap.from('.stagger-efficiency', {
+            scrollTrigger: { trigger: '#efficiency-section', start: 'top 80%' },
+            y: 40, opacity: 0, duration: 0.9, stagger: 0.15, ease: 'power2.out'
         });
-        gsap.from(".efficiency-card", {
-            scrollTrigger: { trigger: "#efficiency-section", start: "top 75%" },
-            y: 40, opacity: 0, duration: 0.8, stagger: 0.2, ease: "back.out(1.5)"
+        gsap.from('.efficiency-card', {
+            scrollTrigger: { trigger: '#efficiency-section', start: 'top 70%' },
+            y: 60, opacity: 0, duration: 1, stagger: 0.2, ease: 'back.out(1.4)'
         });
 
-        // Produtos
-        gsap.from(".products-text", {
-            scrollTrigger: { trigger: "#products-section", start: "top 75%" },
-            x: -40, opacity: 0, duration: 0.9, ease: "power2.out"
+        // ============ PRODUCTS SECTION ============
+        gsap.from('.products-text', {
+            scrollTrigger: { trigger: '#products-section', start: 'top 75%' },
+            x: -50, opacity: 0, duration: 1, ease: 'power2.out'
         });
-        gsap.from(".products-image", {
-            scrollTrigger: { trigger: "#products-section", start: "top 75%" },
-            x: 40, opacity: 0, duration: 0.9, ease: "power2.out"
-        });
-
-        // Galeria Experience
-        gsap.from(".stagger-gallery", {
-            scrollTrigger: { trigger: "#gallery-section", start: "top 80%" },
-            y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power2.out"
-        });
-        gsap.from(".bento-item", {
-            scrollTrigger: { trigger: "#gallery-section", start: "top 75%" },
-            scale: 0.95, opacity: 0, duration: 0.7, stagger: 0.15, ease: "power2.out"
+        gsap.from('.products-image', {
+            scrollTrigger: { trigger: '#products-section', start: 'top 75%' },
+            x: 50, opacity: 0, duration: 1, ease: 'power2.out'
         });
 
-
-
-        // Como Usar
-        gsap.from(".how-to-title", {
-            scrollTrigger: { trigger: "#how-to-use-section", start: "top 85%" },
-            y: 30, opacity: 0, duration: 0.8, ease: "power2.out"
+        // ============ GALLERY SECTION ============
+        gsap.from('.stagger-gallery', {
+            scrollTrigger: { trigger: '#gallery-section', start: 'top 80%' },
+            y: 40, opacity: 0, duration: 0.9, stagger: 0.15, ease: 'power2.out'
         });
-        gsap.from(".step-item", {
-            scrollTrigger: { trigger: "#how-to-use-section", start: "top 75%" },
-            y: 30, opacity: 0, duration: 0.7, stagger: 0.15, ease: "power2.out"
+        gsap.from('.bento-item', {
+            scrollTrigger: { trigger: '#gallery-section', start: 'top 70%' },
+            scale: 0.92, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power2.out'
         });
 
-        // ================= ETAPA 4: Animações de Entrada e Call to Action =================
-
-        // Animação de Entrada Inicial (Header)
-        gsap.from("header", {
-            y: -100,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-            delay: 0.2
+        // ============ VIDEO SECTION ============
+        gsap.from('.video-content', {
+            scrollTrigger: { trigger: '#video-section', start: 'top 80%' },
+            y: 40, opacity: 0, duration: 0.9, stagger: 0.15, ease: 'power2.out'
+        });
+        gsap.from('.video-phone', {
+            scrollTrigger: { trigger: '#video-section', start: 'top 70%' },
+            scale: 0.85, opacity: 0, duration: 1.2, ease: 'back.out(1.4)'
         });
 
-        // CTA Final
-        const ctaTimeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".py-32", // A classe da seção final
-                start: "top 80%",
-            }
+        // ============ HOW TO USE SECTION ============
+        gsap.from('.how-to-title', {
+            scrollTrigger: { trigger: '#how-to-use-section', start: 'top 85%' },
+            y: 40, opacity: 0, duration: 0.9, stagger: 0.15, ease: 'power2.out'
+        });
+        gsap.from('.step-item', {
+            scrollTrigger: { trigger: '#how-to-use-section', start: 'top 70%' },
+            y: 50, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power2.out'
         });
 
-        ctaTimeline.from(".py-32 h2, .py-32 p", {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out"
-        })
-            .from(".py-32 button", {
-                scale: 0.8,
-                opacity: 0,
-                duration: 0.6,
-                ease: "back.out(2)"
-            }, "-=0.2");
-
-        // Efeito Botão Flutuante Contínuo (Respiração)
-        gsap.to(".py-32 button", {
-            y: -8,
-            duration: 1.5,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
+        // ============ CTA SECTION ============
+        gsap.from('.cta-content', {
+            scrollTrigger: { trigger: '#cta-section', start: 'top 80%' },
+            y: 40, opacity: 0, duration: 0.9, stagger: 0.2, ease: 'power2.out'
         });
 
-        // Navegação suave do Menu Header
-        document.querySelectorAll('header a[href^="#"]').forEach(anchor => {
+        // ============ SMOOTH SCROLL NAV ============
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     gsap.to(window, {
-                        scrollTo: { y: target, autoKill: false, offsetY: 80 }, // offsetY compensa o header fixo
-                        duration: 1,
-                        ease: "power2.inOut"
+                        scrollTo: { y: target, autoKill: false, offsetY: 80 },
+                        duration: 1.2,
+                        ease: 'power2.inOut'
                     });
                 }
             });
         });
 
-        // Atualizar ScrollTrigger em caso de resize e readequação de document height
+        // Refresh ScrollTrigger after layout settles
         setTimeout(() => ScrollTrigger.refresh(), 500);
 
+        // ============ VIDEO PLAYER CONTROLS ============
+        const lavoVideo = document.getElementById('lavoVideo');
+        const lavoMuteBtn = document.getElementById('lavoMuteBtn');
+        const lavoPlayIcon = document.getElementById('lavoPlayIcon');
+        const lavoProgress = document.getElementById('lavoVideoProgress');
+
+        function toggleLavoPlay() {
+            if (lavoVideo.paused) {
+                lavoVideo.play();
+                lavoPlayIcon.innerHTML = '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+            } else {
+                lavoVideo.pause();
+                lavoPlayIcon.innerHTML = '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+            }
+        }
+
+        function toggleLavoMute(e) {
+            e.stopPropagation();
+            lavoVideo.muted = !lavoVideo.muted;
+            if (lavoVideo.muted) {
+                lavoMuteBtn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>';
+            } else {
+                lavoMuteBtn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M17.95 6.05a8 8 0 010 11.9M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>';
+            }
+        }
+
+        lavoVideo.addEventListener('timeupdate', () => {
+            const percentage = (lavoVideo.currentTime / lavoVideo.duration) * 100;
+            lavoProgress.style.width = percentage + '%';
+        });
+
+        // Autoplay verification
+        window.addEventListener('load', () => {
+            lavoVideo.play().catch(error => {
+                console.log("Autoplay blocked by browser", error);
+                lavoPlayIcon.innerHTML = '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+            });
+        });
     </script>
 
 </body>
