@@ -205,9 +205,9 @@
 
     <!-- ========== HEADER (Floating Centered Pill) ========== -->
     <header id="main-header"
-        class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6 md:gap-8 px-5 py-3 md:px-8 md:py-3 rounded-full transition-all duration-500"
+        class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 sm:gap-6 md:gap-8 px-4 py-2 md:px-8 md:py-3 rounded-full transition-all duration-500 w-[92%] sm:w-auto overflow-hidden justify-between sm:justify-center border border-white/20 shadow-md"
         style="background: transparent;">
-        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-7 md:h-10 object-contain">
+        <img src="./assets/logo Lavô.png" alt="Lavô" class="h-5 sm:h-7 md:h-10 object-contain">
         <nav class="hidden md:flex items-center gap-6">
             <a href="#products-section"
                 class="nav-link text-gray-600 hover:text-lavo-blue transition-colors">Insumos</a>
@@ -216,7 +216,7 @@
                 Usar</a>
         </nav>
         <a href="#cta-section"
-            class="bg-gradient-to-r from-lavo-pink to-lavo-purple text-white px-6 py-2 md:px-8 md:py-2.5 rounded-full text-sm font-bold hover:shadow-lg hover:shadow-lavo-pink/20 transition-all duration-300 hover:-translate-y-0.5">
+            class="bg-gradient-to-r from-lavo-pink to-lavo-purple text-white px-4 py-1.5 md:px-8 md:py-2.5 rounded-full text-[10px] md:text-sm font-bold hover:shadow-lg hover:shadow-lavo-pink/20 transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap">
             Venha nos Conhecer
         </a>
     </header>
@@ -238,24 +238,24 @@
     </div>
 
     <!-- ========== HERO SECTION ========== -->
-    <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+    <section id="hero" class="relative min-h-[100svh] min-h-screen flex flex-col items-center justify-center overflow-hidden">
         <!-- Gradient overlay for text legibility -->
-        <div class="absolute inset-0 hero-gradient z-0"></div>
+        <div class="absolute inset-0 hero-gradient z-0 pointer-events-none"></div>
 
-        <!-- Background image (right side) -->
-        <div class="absolute inset-0 hero-image-container z-10">
+        <!-- Background image Desktop -->
+        <div class="absolute inset-0 hero-image-container z-10 pointer-events-none hidden md:block">
             <img src="./assets/cena1-pilha.png" id="hero-image" alt="Pilha de roupas"
-                class="absolute right-0 top-1/2 -translate-y-1/2 h-[70vh] md:h-[80vh] object-contain opacity-100"
+                class="absolute right-0 top-1/2 -translate-y-1/2 h-[75vh] md:h-[80vh] object-contain opacity-100"
                 style="right: 5%;">
         </div>
 
-        <!-- Decorative blob -->
-        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-lavo-lightBlue/10 rounded-full filter blur-3xl"></div>
-        <div class="absolute bottom-1/4 left-1/3 w-72 h-72 bg-lavo-pink/5 rounded-full filter blur-3xl"></div>
+        <!-- Decorative blobs -->
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-lavo-lightBlue/10 rounded-full filter blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-72 h-72 bg-lavo-pink/5 rounded-full filter blur-3xl pointer-events-none"></div>
 
         <!-- Hero content -->
-        <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 pt-28 pb-16 w-full">
-            <div class="max-w-2xl">
+        <div class="relative z-20 max-w-7xl mx-auto px-5 sm:px-12 lg:px-24 pt-32 md:pt-28 pb-8 md:pb-16 w-full flex flex-col md:block h-full flex-grow">
+            <div class="max-w-2xl flex-shrink-0">
                 <!-- Small label -->
                 <div id="hero-label"
                     class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-lavo-blue/5 border border-lavo-blue/10">
@@ -265,52 +265,58 @@
 
                 <!-- Main heading -->
                 <h1 id="hero-title"
-                    class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-lavo-blue leading-[1.1] tracking-tight mb-6">
+                    class="font-display text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl font-black text-lavo-blue leading-[1.1] tracking-tight mb-5 md:mb-6">
                     Chega de perder o dia inteiro lavando roupa.
                 </h1>
 
                 <!-- Subtitle -->
-                <p id="hero-subtitle" class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8 max-w-lg font-light">
+                <p id="hero-subtitle" class="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-8 max-w-lg font-light">
                     Conheça a Lavô — a sua lavanderia de autoatendimento inteligente: rápida, econômica e 100% focada na
                     sua praticidade.
                 </p>
 
                 <!-- CTA buttons -->
-                <div id="hero-cta" class="flex flex-wrap gap-4">
+                <div id="hero-cta" class="flex flex-col sm:flex-row gap-4">
                     <a href="#how-to-use-section"
-                        class="bg-gradient-to-r from-lavo-pink to-lavo-pinkDark text-white px-10 py-4 rounded-full text-base font-bold hover:shadow-xl hover:shadow-lavo-pink/25 transition-all duration-300 hover:-translate-y-1">
+                        class="text-center bg-gradient-to-r from-lavo-pink to-lavo-pinkDark text-white px-8 md:px-10 py-4 rounded-full text-base font-bold hover:shadow-xl hover:shadow-lavo-pink/25 transition-all duration-300 hover:-translate-y-1">
                         Como Funciona
                     </a>
                     <a href="#gallery-section"
-                        class="bg-white text-lavo-blue px-10 py-4 rounded-full text-base font-bold border-2 border-lavo-blue/10 hover:border-lavo-blue/30 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                        class="text-center bg-white text-lavo-blue px-8 md:px-10 py-4 rounded-full text-base font-bold border-2 border-lavo-blue/10 hover:border-lavo-blue/30 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                         Conheça o Espaço
                     </a>
                 </div>
 
                 <!-- Trust indicators -->
-                <div id="hero-trust" class="flex items-center gap-8 mt-10 pt-6 border-t border-gray-200/50">
-                    <div>
-                        <span class="text-3xl font-black text-lavo-blue">35<span
+                <div id="hero-trust" class="flex justify-between md:justify-start items-center gap-4 md:gap-8 mt-10 pt-6 border-t border-gray-200/50">
+                    <div class="text-center md:text-left">
+                        <span class="text-2xl md:text-3xl font-black text-lavo-blue">35<span
                                 class="text-lavo-pink">min</span></span>
-                        <p class="text-xs text-gray-500 mt-1 font-semibold">Lavagem</p>
+                        <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-semibold uppercase tracking-wider">Lavagem</p>
                     </div>
-                    <div class="w-px h-10 bg-gray-200"></div>
-                    <div>
-                        <span class="text-3xl font-black text-lavo-blue">45<span
+                    <div class="w-px h-8 md:h-10 bg-gray-200"></div>
+                    <div class="text-center md:text-left">
+                        <span class="text-2xl md:text-3xl font-black text-lavo-blue">45<span
                                 class="text-lavo-pink">min</span></span>
-                        <p class="text-xs text-gray-500 mt-1 font-semibold">Secagem</p>
+                        <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-semibold uppercase tracking-wider">Secagem</p>
                     </div>
-                    <div class="w-px h-10 bg-gray-200"></div>
-                    <div>
-                        <span class="text-3xl font-black text-lavo-blue">100<span class="text-lavo-pink">%</span></span>
-                        <p class="text-xs text-gray-500 mt-1 font-semibold">Automático</p>
+                    <div class="w-px h-8 md:h-10 bg-gray-200"></div>
+                    <div class="text-center md:text-left">
+                        <span class="text-2xl md:text-3xl font-black text-lavo-blue">100<span class="text-lavo-pink">%</span></span>
+                        <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-semibold uppercase tracking-wider">Auto</p>
                     </div>
                 </div>
+            </div>
+
+            <!-- Mobile Image -->
+            <div id="hero-image-mobile-container" class="mt-8 mb-4 flex-grow flex items-center justify-center md:hidden w-full relative z-10">
+                <img src="./assets/cena1-pilha.png" id="hero-image-mobile" alt="Pilha de roupas"
+                    class="h-[35vh] max-h-[350px] object-contain drop-shadow-2xl opacity-100">
             </div>
         </div>
 
         <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+        <div class="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 z-20 hidden md:flex">
             <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">Explore</span>
             <div class="w-5 h-8 border-2 border-gray-300 rounded-full flex justify-center pt-1.5">
                 <div class="w-1 h-2 bg-gray-400 rounded-full animate-bounce"></div>
@@ -321,22 +327,22 @@
 
     <!-- ========== SECTION: PRODUTOS ========== -->
     <div class="section-divider"></div>
-    <section id="products-section" class="py-20 md:py-24 bg-white relative z-10 overflow-hidden pattern-dots">
+    <section id="products-section" class="py-16 md:py-24 bg-white relative z-10 overflow-hidden pattern-dots">
         <!-- Decorative background -->
         <div
             class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-lavo-blue/[0.02] rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2">
         </div>
 
         <div class="max-w-6xl mx-auto px-6 sm:px-12 lg:px-24">
-            <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
                 <div class="w-full lg:w-1/2 products-text">
                     <span
-                        class="inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-4">Qualidade</span>
+                        class="inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-3 md:mb-4">Qualidade</span>
                     <h2
-                        class="font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue mb-6 leading-tight">
+                        class="font-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue mb-4 md:mb-6 leading-tight">
                         Qualidade premium em cada gota.
                     </h2>
-                    <p class="text-gray-500 text-lg mb-10 leading-relaxed font-light">
+                    <p class="text-gray-500 text-base md:text-lg mb-8 md:mb-10 leading-relaxed font-light">
                         Sabemos que suas roupas exigem o máximo de cuidado. Por isso, abastecemos nossas máquinas com
                         uma linha
                         <strong class="text-lavo-blue font-bold">Premium Superconcentrada</strong> de alta performance.
@@ -384,16 +390,16 @@
 
     <!-- ========== SECTION: GALERIA ========== -->
     <div class="section-divider"></div>
-    <section id="gallery-section" class="py-20 md:py-24 bg-lavo-bg relative z-10">
+    <section id="gallery-section" class="py-16 md:py-24 bg-lavo-bg relative z-10">
         <div class="max-w-6xl mx-auto px-6 sm:px-12 lg:px-24">
-            <div class="text-center mb-20">
+            <div class="text-center mb-12 md:mb-20">
                 <span
-                    class="stagger-gallery inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-4">Nosso
+                    class="stagger-gallery inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-3 md:mb-4">Nosso
                     Espaço</span>
-                <h2 class="stagger-gallery font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue mb-5">
+                <h2 class="stagger-gallery font-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue mb-4 md:mb-5">
                     O espaço ideal para a sua espera.
                 </h2>
-                <p class="stagger-gallery text-gray-500 text-lg max-w-2xl mx-auto leading-relaxed font-light">
+                <p class="stagger-gallery text-gray-500 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-light">
                     Nossa loja em Campina Grande foi projetada 100% pensando no seu conforto, segurança e bem-estar.
                 </p>
             </div>
@@ -432,7 +438,7 @@
     <!-- ========== SECTION: VÍDEO ========== -->
     <div class="section-divider"></div>
     <section id="video-section"
-        class="py-20 md:py-24 px-6 md:px-12 relative overflow-hidden flex flex-col items-center z-10"
+        class="py-16 md:py-24 px-6 md:px-12 relative overflow-hidden flex flex-col items-center z-10"
         style="background: linear-gradient(135deg, #0055A4 0%, #003D7A 40%, #1a1a3e 100%);">
         <!-- Decorative background -->
         <div class="absolute inset-0 z-0 opacity-10">
@@ -442,17 +448,17 @@
         </div>
 
         <div
-            class="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-16">
+            class="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
             <div class="lg:w-1/2 flex flex-col justify-center text-center lg:text-left">
                 <span
-                    class="video-content text-lavo-pink font-bold tracking-[0.2em] text-xs uppercase block mb-4 flex items-center justify-center lg:justify-start gap-2">
+                    class="video-content text-lavo-pink font-bold tracking-[0.2em] text-xs uppercase block mb-3 md:mb-4 flex items-center justify-center lg:justify-start gap-2">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
                     </svg>
                     Conheça a Lavô por Dentro
                 </span>
                 <h2
-                    class="video-content font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    class="video-content font-display text-3xl md:text-4xl lg:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
                     Veja como é<br><span class="text-lavo-lightBlue italic">Simples e Rápido</span>
                 </h2>
                 <p
@@ -548,18 +554,18 @@
 
     <!-- ========== SECTION: COMO USAR ========== -->
     <div class="section-divider"></div>
-    <section id="how-to-use-section" class="py-20 md:py-24 bg-white relative z-10 overflow-hidden">
+    <section id="how-to-use-section" class="py-16 md:py-24 bg-white relative z-10 overflow-hidden">
         <!-- Decorative -->
         <div
             class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-lavo-lightBlue/[0.03] rounded-full filter blur-3xl translate-y-1/2 -translate-x-1/2">
         </div>
 
         <div class="max-w-6xl mx-auto px-6 sm:px-12 lg:px-24">
-            <div class="text-center mb-20">
+            <div class="text-center mb-12 md:mb-20">
                 <span
-                    class="how-to-title inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-4">Passo
+                    class="how-to-title inline-block text-xs font-bold text-lavo-pink tracking-[0.2em] uppercase mb-3 md:mb-4">Passo
                     a Passo</span>
-                <h2 class="how-to-title font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue">
+                <h2 class="how-to-title font-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-lavo-blue">
                     Comodidade em 4 passos.
                 </h2>
             </div>
@@ -614,7 +620,7 @@
 
     <!-- ========== SECTION: CTA FINAL ========== -->
     <div class="section-divider"></div>
-    <section id="cta-section" class="py-24 md:py-28 px-6 sm:px-12 lg:px-24 relative z-10 overflow-hidden"
+    <section id="cta-section" class="py-20 md:py-28 px-6 sm:px-12 lg:px-24 relative z-10 overflow-hidden"
         style="background: linear-gradient(135deg, #0055A4 0%, #003D7A 40%, #1a1a3e 100%);">
         <!-- Decorative elements -->
         <div class="absolute top-0 right-0 w-96 h-96 bg-lavo-lightBlue/10 rounded-full filter blur-3xl"></div>
@@ -622,11 +628,11 @@
 
         <div class="max-w-3xl mx-auto text-center relative z-10">
             <h2
-                class="cta-content font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                class="cta-content font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 leading-tight">
                 Roupas limpas, secas e muito mais tempo livre.
             </h2>
             <p
-                class="cta-content text-base md:text-lg text-blue-100/80 mb-10 max-w-xl mx-auto leading-relaxed font-light">
+                class="cta-content text-sm md:text-lg text-blue-100/80 mb-8 md:mb-10 max-w-xl mx-auto leading-relaxed font-light">
                 Faça parte da comunidade que valoriza o cuidado com as roupas e o respeito ao meio ambiente — a Lavô tem
                 o certificado Eureciclo. Lave de forma inovadora e vá curtir o que realmente importa.
             </p>
@@ -638,7 +644,7 @@
     </section>
 
     <!-- ========== FOOTER ========== -->
-    <footer class="footer-gradient text-white py-16 px-6 sm:px-12 lg:px-24 relative z-10">
+    <footer class="footer-gradient text-white py-12 md:py-16 px-6 sm:px-12 lg:px-24 relative z-10">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-start gap-12">
                 <!-- Brand -->
@@ -706,7 +712,7 @@
 
         // ============ HERO ANIMATIONS ============
         // Ensure elements are visible before animating
-        gsap.set(['#main-header', '#hero-label', '#hero-title', '#hero-subtitle', '#hero-cta', '#hero-trust', '#hero-image'], { opacity: 1 });
+        gsap.set(['#main-header', '#hero-label', '#hero-title', '#hero-subtitle', '#hero-cta', '#hero-trust', '#hero-image', '#hero-image-mobile'], { opacity: 1 });
 
         const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
         heroTl
@@ -716,10 +722,10 @@
             .fromTo('#hero-subtitle', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.4')
             .fromTo('#hero-cta', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, '-=0.3')
             .fromTo('#hero-trust', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, '-=0.2')
-            .fromTo('#hero-image', { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: 'power2.out' }, '-=0.8');
+            .fromTo(['#hero-image', '#hero-image-mobile'], { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: 'power2.out' }, '-=0.8');
 
         // Parallax hero image
-        gsap.to('#hero-image', {
+        gsap.to(['#hero-image', '#hero-image-mobile'], {
             y: -60,
             ease: 'none',
             scrollTrigger: {
